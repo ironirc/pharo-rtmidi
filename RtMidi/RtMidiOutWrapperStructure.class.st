@@ -11,15 +11,15 @@ RtMidiOutWrapperStructure >> rtMidiFree [
 ]
 
 { #category : #api }
-RtMidiOutWrapperStructure >> sendNoteOn [
+RtMidiOutWrapperStructure >> sendMessage: msg [
 
-	RtMidiFfi
-		rtMidiOutSendMessage: self
-		message: #[ 144 64 70  ]
-		length: 3.
- 100 milliSeconds wait.
-	RtMidiFfi
-		rtMidiOutSendMessage: self
-		message: #[ 128 64 110 ]
-		length: 3
+	RtMidiFfi rtMidiOutSendMessage: self message: msg
+]
+
+{ #category : #api }
+RtMidiOutWrapperStructure >> sendTestNoteOnAndOff [
+
+	self sendMessage: #[ 144 64 70 ].
+	100 milliSeconds wait.
+	self sendMessage: #[ 128 64 110 ]
 ]

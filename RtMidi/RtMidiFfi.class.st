@@ -187,6 +187,15 @@ RtMidiFfi class >> rtMidiOutFree: device [
 ]
 
 { #category : #accessing }
+RtMidiFfi class >> rtMidiOutSendMessage: device message: message [
+
+	^ self
+		  rtMidiOutSendMessage: device
+		  message: message
+		  length: message size
+]
+
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiOutSendMessage: device message: message length: length [
 
 	^ self ffiCall: #( void rtmidi_out_send_message  #( void * device, void * message, int length ) )

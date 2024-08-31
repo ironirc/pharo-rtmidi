@@ -16,7 +16,7 @@ out rtMidiPortCount.
 out portNames.
 out rtMidiOpenPortNumber: 1 portName: ''.
 out rtMidiFree.
-([1000 timesRepeat: [out sendNoteOn  ]] timeToRun asMilliSeconds / 1000) asFloat .
+([1000 timesRepeat: [out sendTestNoteOnAndOff  ]] timeToRun asMilliSeconds / 1000) asFloat .
 out ok.
 out msgString.
 
@@ -26,6 +26,6 @@ in rtMidiPortCount.
 in rtMidiOpenPortNumber: 3 portName: 'Hello'.
 in ok. 
 in rtMidiFree.
-in onEventReceiveDo: [ out sendNoteOn    ]
+in onEventReceiveDo: [ out sendTestNoteOnAndOff    ]
 
 ]
