@@ -12,21 +12,27 @@ RtMidiInWrapperStructure >> onEventReceiveDo: aBlock [
 
 	receiveAlarmThunk := FFICallback
 		                     signature:
-		                     #( void #( double timeStamp , uchar * message
-		                           , void * userData ) )
-		                     block: [ :timeStamp :message :userData |
-			                     aBlock
-				                     cull: timeStamp
-				                     cull: message
-				                     cull: userData nil ].
+			                     #( void #( double timeStamp , void * message
+			                           , ulong messageSize , void * userData ) )
+		                     block: [ :timeStamp :message :messageSize :userData |
+			                     | ba |
+			                     ba := message copyFrom: 1 to: messageSize.
+			                     aBlock cull: timeStamp cull: ba cull: userData.
+			                     nil ].
 	receiveAlarmThunk ffiLibrary:
-		RtMidiFfiLibrary"WithTfWorkerRunner" uniqueInstance.
+		RtMidiFfiLibraryWithTfWorkerRunner uniqueInstance.
 	"receiveAlarmThunk backendCallback runStrategy: TFCallbackSameProcessRunStrategy uniqueInstance."
 	"receiveAlarmThunk backendCallback runner: TFWorker default."
 	RtMidiFfi
 		rtMidiInSetCallback: self
 		callback: receiveAlarmThunk thunk asExternalAddress
-		data: nil
+		data: 0
+]
+
+{ #category : #api }
+RtMidiInWrapperStructure >> rtMidiCancelCallback [
+
+	RtMidiFfi rtMidiInCancelCallback: self
 ]
 
 { #category : #api }

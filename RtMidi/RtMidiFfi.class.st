@@ -140,6 +140,12 @@ RtMidiFfi class >> rtMidiGetVersion [
 ]
 
 { #category : #accessing }
+RtMidiFfi class >> rtMidiInCancelCallback: device [
+
+	^ self ffiCall: #( void rtmidi_in_cancel_callback #( void * device ) )
+]
+
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiInCreateDefault [
 
 	^ self ffiCall: #( RtMidiInWrapperStructure  * rtmidi_in_create_default
@@ -156,7 +162,7 @@ RtMidiFfi class >> rtMidiInFree: device [
 RtMidiFfi class >> rtMidiInSetCallback: device callback: callback data: data [
 
 	^ self ffiCall:
-		  #( void rtmidi_in_set_callback  #( RtMidiCallback callback , void * data ) )
+		  #( void rtmidi_in_set_callback  #( void * device, FFICallback callback , void * data ) )
 ]
 
 { #category : #accessing }

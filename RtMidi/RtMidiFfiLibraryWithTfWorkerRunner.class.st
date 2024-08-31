@@ -17,7 +17,7 @@ RtMidiFfiLibraryWithTfWorkerRunner >> ffiLibraryName [
 
 { #category : #'accessing - platform' }
 RtMidiFfiLibraryWithTfWorkerRunner >> macLibraryName [
-	^ 'libclntsh.dylib'
+	^ '/System/Volumes/Data/opt/homebrew/Cellar/rtmidi/6.0.0/lib/librtmidi.7.dylib'
 ]
 
 { #category : #receiveAlarms }

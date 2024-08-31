@@ -15,7 +15,7 @@ RtMidiOutWrapperStructure >> sendNoteOn [
 
 	RtMidiFfi
 		rtMidiOutSendMessage: self
-		message: #[ 144 64 110  ]
+		message: #[ 144 64 70  ]
 		length: 3.
  100 milliSeconds wait.
 	RtMidiFfi
