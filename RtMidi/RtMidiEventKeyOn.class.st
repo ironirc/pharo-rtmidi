@@ -3,7 +3,7 @@ Missing comment
 "
 Class {
 	#name : #RtMidiEventKeyOn,
-	#superclass : #RtMidiEvent,
+	#superclass : #RtMidiEventNoteAbstract,
 	#category : #RtMidi
 }
 
@@ -16,6 +16,15 @@ RtMidiEventKeyOn class >> eventTypeNumber [
 { #category : #constants }
 RtMidiEventKeyOn class >> eventTypeSymbol [
 	^#typeKeyOn
+]
+
+{ #category : #printing }
+RtMidiEventKeyOn >> asByteArray [
+
+	^ {
+		  (16r90 bitOr: self channel).
+		  self pitch.
+		  self velocity } asByteArray 
 ]
 
 { #category : #printing }
@@ -35,42 +44,7 @@ RtMidiEventKeyOn >> displayString [
 	^ ws contents
 ]
 
-{ #category : #acessing }
-RtMidiEventKeyOn >> pitch [
-	^ self interface
-		MidiGetField:  cPointer
-		with: 0
-]
-
-{ #category : #acessing }
-RtMidiEventKeyOn >> pitch:  pitch [
-	 self interface
-		MidiSetField:  cPointer
-		with: 0
-		with:  pitch
-]
-
 { #category : #services }
 RtMidiEventKeyOn >> sendTo:  receiver [
 	 receiver receiveKeyOn:  self
-]
-
-{ #category : #services }
-RtMidiEventKeyOn >> transpose:  aNumber [
-	 self pitch:  self pitch +  aNumber
-]
-
-{ #category : #acessing }
-RtMidiEventKeyOn >> velocity [
-	^ self interface
-		MidiGetField:  cPointer
-		with: 1
-]
-
-{ #category : #acessing }
-RtMidiEventKeyOn >> velocity:  velocity [
-	 self interface
-		MidiSetField:  cPointer
-		with: 1
-		with:  velocity
 ]

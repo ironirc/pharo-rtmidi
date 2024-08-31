@@ -5,8 +5,8 @@ Class {
 	#name : #RtMidiEvent,
 	#superclass : #Object,
 	#instVars : [
-		'system',
-		'cPointer',
+		'port',
+		'channel',
 		'isConsumed'
 	],
 	#classInstVars : [
@@ -47,14 +47,28 @@ RtMidiEvent class >> eventTypeSymbol [
 	^#Generic
 ]
 
+{ #category : #constants }
+RtMidiEvent class >> fromByteArray: ba [
+
+	^self fromByteStream: ba readStream
+]
+
+{ #category : #constants }
+RtMidiEvent class >> fromByteStream: rs [
+
+	| firstByte statusNibble |
+	firstByte := rs peek.
+	statusNibble := 16rF0 bitAnd: firstByte.
+	statusNibble = 16r90 ifTrue: [
+		^ RtMidiEventKeyOn new initFromByteStream: rs ].
+	statusNibble = 16r80 ifTrue: [
+		^ RtMidiEventKeyOff new initFromByteStream: rs ].
+	self error: 'unknown'
+]
+
 { #category : #private }
 RtMidiEvent class >> interface [
 	^ MshFfi
-]
-
-{ #category : #'instance creation' }
-RtMidiEvent class >> new [
-	^ self shouldNotImplement
 ]
 
 { #category : #'instance creation' }
@@ -85,65 +99,23 @@ RtMidiEvent class >> selectorForDoubleDispatch [
 			 selectorForDoubleDispatch :=  ws contents asSymbol]
 ]
 
-{ #category : #restricted }
-RtMidiEvent >> cPointer [
-	^ cPointer
-]
-
-{ #category : #restricted }
-RtMidiEvent >> cPointer:  anObject [
-	 cPointer :=  anObject	"self class registerForFinalization: self"
-]
-
 { #category : #accessing }
 RtMidiEvent >> channel [
-	^( self cPointer memberAt: #chan) + 1
+	^channel
 ]
 
 { #category : #accessing }
-RtMidiEvent >> channel:  chan [
-	 self cPointer
-		memberAt: #chan
-		put:  chan - 1
+RtMidiEvent >> channel: aChannel [
+
+	channel := aChannel
 ]
 
 { #category : #services }
-RtMidiEvent >> copy [
-	^ super copy cPointer: ( self interface MidiCopyEv:  cPointer)
-]
+RtMidiEvent >> copyDo: aBlock [
 
-{ #category : #services }
-RtMidiEvent >> copyDo:  aBlock [
-	|  ev |
-	 ev :=  self copy.
-	 ev ifNotNil: [[ aBlock value:  ev] ensure: [ ev freeExternal]]
-]
-
-{ #category : #restricted }
-RtMidiEvent >> createExternal [
-	|  evInfo  evInfoNote |
-	 self flag: 'this is specific for notes'.
-	 cPointer :=  self interface MidiNewEv:  self class eventTypeNumber.
-	 cPointer
-		date: 0;
-		refNum: 0;
-		port: 0;
-		chan: 0.
-	 evInfo :=  cPointer info.
-	 evInfoNote :=  evInfo note.
-	 evInfoNote
-		pitch: 70;
-		vel: 100;
-		dur: 4.
-	 evInfo
-		note:  evInfoNote.
-	 cPointer
-		info:  evInfo
-]
-
-{ #category : #finalization }
-RtMidiEvent >> freeExternal [
-	 self interface MidiFreeEv:  cPointer
+	| ev |
+	ev := self copy.
+	aBlock value: ev
 ]
 
 { #category : #private }
@@ -186,14 +158,13 @@ RtMidiEvent >> port:  port [
 
 { #category : #accessing }
 RtMidiEvent >> portZeroBased [
-	^ self cPointer memberAt: #port
+	^ port
 ]
 
 { #category : #accessing }
-RtMidiEvent >> portZeroBased:  port [
-	 self cPointer
-		memberAt: #port
-		put:  port
+RtMidiEvent >> portZeroBased: aPort [
+
+	port := aPort
 ]
 
 { #category : #services }
@@ -201,16 +172,6 @@ RtMidiEvent >> sendTo:  receiver [
 	"Error raiseSignal: 'unimplemented event type'"
 
 	
-]
-
-{ #category : #restricted }
-RtMidiEvent >> system [
-	^ system
-]
-
-{ #category : #restricted }
-RtMidiEvent >> system:  anObject [
-	 system :=  anObject
 ]
 
 { #category : #constants }
