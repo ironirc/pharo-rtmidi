@@ -4,7 +4,11 @@ Missing comment
 Class {
 	#name : #RtMidiEventPitchWheel,
 	#superclass : #RtMidiEvent,
-	#category : #RtMidi
+	#instVars : [
+		'lsb',
+		'msb'
+	],
+	#category : #'RtMidi-events'
 }
 
 { #category : #constants }
@@ -18,6 +22,36 @@ RtMidiEventPitchWheel class >> eventTypeSymbol [
 	^#typePitchWheel
 ]
 
+{ #category : #constants }
+RtMidiEventPitchWheel class >> statusByte [
+
+	^ 16rE0
+]
+
+{ #category : #accessing }
+RtMidiEventPitchWheel >> lsb [
+
+	^ byteArray at: 2
+]
+
+{ #category : #accessing }
+RtMidiEventPitchWheel >> lsb: aByte [
+
+	byteArray at: 2 put: aByte
+]
+
+{ #category : #accessing }
+RtMidiEventPitchWheel >> msb [
+
+	^ byteArray at: 3
+]
+
+{ #category : #accessing }
+RtMidiEventPitchWheel >> msb: aByte [
+
+	byteArray at: 3 put: aByte
+]
+
 { #category : #services }
 RtMidiEventPitchWheel >> sendTo:  receiver [
 	 receiver receivePitchWheel:  self
@@ -26,40 +60,4 @@ RtMidiEventPitchWheel >> sendTo:  receiver [
 { #category : #constants }
 RtMidiEventPitchWheel >> type [
 	^#pitchWheel
-]
-
-{ #category : #acessing }
-RtMidiEventPitchWheel >> value [
-	|  val |
-	 val :=  self
-		valueFromMsb:
-			( self interface
-				MidiGetField:  cPointer
-				with: 1)
-		lsb:
-			( self interface
-				MidiGetField:  cPointer
-				with: 0).	"	Transcript
-		show: 'msb:';
-		show: (self interface MidiGetField: cPointer with: 1) displayString;
-		show: 'lsb:';
-		show: (self interface MidiGetField: cPointer with: 0) displayString;
-		show: 'val:';
-		show: val displayString;
-		cr."
-	^ val
-]
-
-{ #category : #acessing }
-RtMidiEventPitchWheel >> value:  value [
-	|  msbAndLsb |
-	 msbAndLsb :=  self msbAndLsbFrom:  value.
-	 self interface
-		MidiSetField:  cPointer
-		with: 0
-		with:  msbAndLsb first.
-	 self interface
-		MidiSetField:  cPointer
-		with: 1
-		with:  msbAndLsb last
 ]

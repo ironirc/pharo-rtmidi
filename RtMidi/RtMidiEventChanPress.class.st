@@ -4,7 +4,7 @@ Missing comment
 Class {
 	#name : #RtMidiEventChanPress,
 	#superclass : #RtMidiEvent,
-	#category : #RtMidi
+	#category : #'RtMidi-events'
 }
 
 { #category : #constants }
@@ -20,6 +20,12 @@ RtMidiEventChanPress class >> eventTypeSymbol [
 	^#typeChanPress
 ]
 
+{ #category : #constants }
+RtMidiEventChanPress class >> statusByte [
+
+	^ 16rD0
+]
+
 { #category : #services }
 RtMidiEventChanPress >> sendTo:  receiver [
 	 receiver receiveChanPress:  self
@@ -30,17 +36,14 @@ RtMidiEventChanPress >> type [
 	^#chanPress
 ]
 
-{ #category : #acessing }
+{ #category : #accessing }
 RtMidiEventChanPress >> value [
-	^ self interface
-		MidiGetField:  cPointer
-		with: 0
+
+	^ byteArray at: 2
 ]
 
-{ #category : #acessing }
-RtMidiEventChanPress >> value:  value [
-	 self interface
-		MidiSetField:  cPointer
-		with: 0
-		with:  value
+{ #category : #accessing }
+RtMidiEventChanPress >> value: anObject [
+
+	byteArray at: 2 put: anObject
 ]

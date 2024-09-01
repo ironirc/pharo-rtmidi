@@ -1,7 +1,7 @@
 Class {
 	#name : #RtMidiPlayGrounds,
 	#superclass : #Object,
-	#category : #RtMidi
+	#category : #'RtMidi-dev'
 }
 
 { #category : #playgrounds }

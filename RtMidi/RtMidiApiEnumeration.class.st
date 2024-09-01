@@ -13,7 +13,7 @@ Class {
 		'RTMIDI_API_WINDOWS_MM',
 		'RTMIDI_API_WINDOWS_UWP'
 	],
-	#category : #RtMidi
+	#category : #'RtMidi-uffi'
 }
 
 { #category : #accessing }

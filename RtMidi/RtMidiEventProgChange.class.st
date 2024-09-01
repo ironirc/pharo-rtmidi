@@ -4,7 +4,10 @@ Missing comment
 Class {
 	#name : #RtMidiEventProgChange,
 	#superclass : #RtMidiEvent,
-	#category : #RtMidi
+	#instVars : [
+		'value'
+	],
+	#category : #'RtMidi-events'
 }
 
 { #category : #constants }
@@ -16,6 +19,12 @@ RtMidiEventProgChange class >> eventTypeNumber [
 { #category : #constants }
 RtMidiEventProgChange class >> eventTypeSymbol [
 	^#typeProgChange
+]
+
+{ #category : #constants }
+RtMidiEventProgChange class >> statusByte [
+
+	^ 16rC0
 ]
 
 { #category : #printing }
@@ -40,15 +49,11 @@ RtMidiEventProgChange >> sendTo:  receiver [
 
 { #category : #acessing }
 RtMidiEventProgChange >> value [
-	^ self interface
-		MidiGetField:  cPointer
-		with: 0
+	^value
 ]
 
 { #category : #acessing }
-RtMidiEventProgChange >> value:  value [
-	 self interface
-		MidiSetField:  cPointer
-		with: 0
-		with:  value
+RtMidiEventProgChange >> value: aValue [
+
+	value := aValue
 ]

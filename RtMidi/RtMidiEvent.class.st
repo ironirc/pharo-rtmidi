@@ -6,14 +6,13 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'port',
-		'channel',
+		'byteArray',
 		'isConsumed'
 	],
 	#classInstVars : [
-		'eventType',
-		'selectorForDoubleDispatch'
+		'statusByteDict'
 	],
-	#category : #RtMidi
+	#category : #'RtMidi-events'
 }
 
 { #category : #private }
@@ -33,6 +32,15 @@ RtMidiEvent class >> concreteClassForEventTypeSymbol:  eventTypeSymbol [
 					'no concrete class for eventTypeSymbol: #' ,  eventTypeSymbol]
 ]
 
+{ #category : #private }
+RtMidiEvent class >> concreteClassForStatusByte: statusByte [
+
+	self allSubclasses do: [ :cl |
+		cl statusByte = statusByte ifTrue: [ ^ cl ] ].
+	Error signal:
+		'no concrete class for status byte ' , statusByte hexString
+]
+
 { #category : #constants }
 RtMidiEvent class >> eventTypeNumber [
 
@@ -47,28 +55,37 @@ RtMidiEvent class >> eventTypeSymbol [
 	^#Generic
 ]
 
-{ #category : #constants }
-RtMidiEvent class >> fromByteArray: ba [
+{ #category : #private }
+RtMidiEvent class >> initializeStatusByteDict [
 
-	^self fromByteStream: ba readStream
-]
-
-{ #category : #constants }
-RtMidiEvent class >> fromByteStream: rs [
-
-	| firstByte statusNibble |
-	firstByte := rs peek.
-	statusNibble := 16rF0 bitAnd: firstByte.
-	statusNibble = 16r90 ifTrue: [
-		^ RtMidiEventKeyOn new initFromByteStream: rs ].
-	statusNibble = 16r80 ifTrue: [
-		^ RtMidiEventKeyOff new initFromByteStream: rs ].
-	self error: 'unknown'
+	statusByteDict := Dictionary new.
+	self allSubclassesDo: [ :sc |
+		sc statusByte ifNotNil: [ statusByteDict at: sc statusByte put: sc ] ]
 ]
 
 { #category : #private }
 RtMidiEvent class >> interface [
-	^ MshFfi
+
+	^ RtMidiFfi
+]
+
+{ #category : #constants }
+RtMidiEvent class >> newForByteArray: ba [
+
+	| firstByte statusNibble  |
+	firstByte := ba at: 1.
+	firstByte = RtMidiEventActiveSens statusByte ifTrue: [
+		^ RtMidiEventActiveSens new ].
+	statusNibble := 16rF0 bitAnd: firstByte. "retaining only 4 most significant bits"
+	
+	^ (self newForStatusByte: statusNibble)
+		  byteArray: ba
+]
+
+{ #category : #constants }
+RtMidiEvent class >> newForStatusByte: statusByte [
+
+	^ (self concreteClassForStatusByte: statusByte) basicNew
 ]
 
 { #category : #'instance creation' }
@@ -85,29 +102,33 @@ RtMidiEvent class >> newOfTypeNumber:  eventTypeNumber forSystem:  system [
 		yourself
 ]
 
-{ #category : #constants }
-RtMidiEvent class >> selectorForDoubleDispatch [
-	^ selectorForDoubleDispatch
-		ifNil:
-			[|  ws  rs |
-			 ws :=  WriteStream on: ( String new: 20).
-			 rs :=  self class eventTypeSymbol.
-			 ws :=  ws
-				nextPutAll: 'receiveEvent';
-				nextPut:  rs next asUppercase;
-				nextPutAll:  rs upToEnd.
-			 selectorForDoubleDispatch :=  ws contents asSymbol]
+{ #category : #private }
+RtMidiEvent class >> statusByte [
+
+	^ nil
+]
+
+{ #category : #accessing }
+RtMidiEvent >> byteArray [
+
+	^ byteArray
+]
+
+{ #category : #accessing }
+RtMidiEvent >> byteArray: anObject [
+
+	byteArray := anObject
 ]
 
 { #category : #accessing }
 RtMidiEvent >> channel [
-	^channel
+	^(byteArray at: 1) bitAnd: 16r0F
 ]
 
 { #category : #accessing }
 RtMidiEvent >> channel: aChannel [
 
-	channel := aChannel
+	^ byteArray at: 1 put: (self class statusByte bitOr: aChannel)
 ]
 
 { #category : #services }
@@ -141,6 +162,7 @@ RtMidiEvent >> isConsumed:  anObject [
 
 { #category : #private }
 RtMidiEvent >> msbAndLsbFrom:  value [
+
 	^ Array
 		with: ( value bitAnd: 127)
 		with: (( value bitShift: -7) bitAnd: 127)
@@ -148,23 +170,14 @@ RtMidiEvent >> msbAndLsbFrom:  value [
 
 { #category : #accessing }
 RtMidiEvent >> port [
-	^ self portZeroBased + 1
-]
 
-{ #category : #accessing }
-RtMidiEvent >> port:  port [
-	 self portZeroBased:  port - 1
-]
-
-{ #category : #accessing }
-RtMidiEvent >> portZeroBased [
 	^ port
 ]
 
 { #category : #accessing }
-RtMidiEvent >> portZeroBased: aPort [
+RtMidiEvent >> port: anObject [
 
-	port := aPort
+	port := anObject
 ]
 
 { #category : #services }

@@ -1,7 +1,7 @@
 Class {
 	#name : #RtMidiFfiLibraryWithTfWorkerRunner,
 	#superclass : #FFILibrary,
-	#category : #RtMidi
+	#category : #'RtMidi-uffi'
 }
 
 { #category : #initialization }

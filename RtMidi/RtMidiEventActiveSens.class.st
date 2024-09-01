@@ -4,7 +4,7 @@ Missing comment
 Class {
 	#name : #RtMidiEventActiveSens,
 	#superclass : #RtMidiEvent,
-	#category : #RtMidi
+	#category : #'RtMidi-events'
 }
 
 { #category : #constants }
@@ -20,6 +20,12 @@ RtMidiEventActiveSens class >> eventTypeSymbol [
 	^#typeActiveSens
 ]
 
+{ #category : #constants }
+RtMidiEventActiveSens class >> statusByte [
+
+	^ 16rFE
+]
+
 { #category : #testing }
 RtMidiEventActiveSens >> isActiveSense [
 
@@ -28,7 +34,7 @@ RtMidiEventActiveSens >> isActiveSense [
 
 { #category : #services }
 RtMidiEventActiveSens >> sendTo:  receiver [
-	"	receiver receiveActiveSens: self"
+		receiver receiveActiveSens: self
 
 	
 ]

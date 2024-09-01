@@ -1,7 +1,7 @@
 Class {
 	#name : #RtMidiOutWrapperStructure,
 	#superclass : #RtMidiWrapperStructure,
-	#category : #RtMidi
+	#category : #'RtMidi-uffi'
 }
 
 { #category : #api }

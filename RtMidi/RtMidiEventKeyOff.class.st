@@ -4,7 +4,7 @@ Missing comment
 Class {
 	#name : #RtMidiEventKeyOff,
 	#superclass : #RtMidiEventNoteAbstract,
-	#category : #RtMidi
+	#category : #'RtMidi-events'
 }
 
 { #category : #constants }
@@ -20,13 +20,10 @@ RtMidiEventKeyOff class >> eventTypeSymbol [
 	^#typeKeyOff
 ]
 
-{ #category : #services }
-RtMidiEventKeyOff >> asByteArray [
+{ #category : #constants }
+RtMidiEventKeyOff class >> statusByte [
 
-	^ {
-		  (16r80 bitOr: self channel).
-		  self pitch.
-		  self velocity } asByteArray 
+	^ 16r80
 ]
 
 { #category : #printing }

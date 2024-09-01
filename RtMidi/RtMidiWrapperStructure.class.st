@@ -7,7 +7,7 @@ Class {
 		'OFFSET_OK',
 		'OFFSET_PTR'
 	],
-	#category : #RtMidi
+	#category : #'RtMidi-uffi'
 }
 
 { #category : #'field definition' }

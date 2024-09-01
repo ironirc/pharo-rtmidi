@@ -4,7 +4,7 @@ Class {
 	#pools : [
 		'RtMidiApiEnumeration'
 	],
-	#category : #RtMidi
+	#category : #'RtMidi-uffi'
 }
 
 { #category : #accessing }

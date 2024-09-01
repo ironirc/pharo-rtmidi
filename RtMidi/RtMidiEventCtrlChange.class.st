@@ -4,7 +4,11 @@ Missing comment
 Class {
 	#name : #RtMidiEventCtrlChange,
 	#superclass : #RtMidiEvent,
-	#category : #RtMidi
+	#instVars : [
+		'number',
+		'value'
+	],
+	#category : #'RtMidi-events'
 }
 
 { #category : #constants }
@@ -18,6 +22,12 @@ RtMidiEventCtrlChange class >> eventTypeNumber [
 { #category : #constants }
 RtMidiEventCtrlChange class >> eventTypeSymbol [
 	^#typeCtrlChange
+]
+
+{ #category : #constants }
+RtMidiEventCtrlChange class >> statusByte [
+
+	^ 16rB0
 ]
 
 { #category : #printing }
@@ -37,19 +47,16 @@ RtMidiEventCtrlChange >> displayString [
 	^ ws contents
 ]
 
-{ #category : #acessing }
+{ #category : #accessing }
 RtMidiEventCtrlChange >> number [
-	^ self interface
-		MidiGetField:  cPointer
-		with: 0
+
+	^ byteArray at: 2
 ]
 
-{ #category : #acessing }
-RtMidiEventCtrlChange >> number:  number [
-	 self interface
-		MidiSetField:  cPointer
-		with: 0
-		with:  number
+{ #category : #accessing }
+RtMidiEventCtrlChange >> number: aValue [
+
+	byteArray at: 2 put: aValue
 ]
 
 { #category : #services }
@@ -62,17 +69,14 @@ RtMidiEventCtrlChange >> type [
 	^#ctrlChange
 ]
 
-{ #category : #acessing }
+{ #category : #accessing }
 RtMidiEventCtrlChange >> value [
-	^ self interface
-		MidiGetField:  cPointer
-		with: 1
+
+	^ byteArray at: 3
 ]
 
-{ #category : #acessing }
-RtMidiEventCtrlChange >> value:  value [
-	 self interface
-		MidiSetField:  cPointer
-		with: 1
-		with:  value
+{ #category : #accessing }
+RtMidiEventCtrlChange >> value: aValue [
+
+	byteArray at: 3 put: aValue
 ]

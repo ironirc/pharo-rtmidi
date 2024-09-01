@@ -5,28 +5,19 @@ Class {
 		'velocity',
 		'pitch'
 	],
-	#category : #RtMidi
+	#category : #'RtMidi-events'
 }
-
-{ #category : #services }
-RtMidiEventNoteAbstract >> initFromByteStream: rs [
-
-
-	self channel: (16r0F bitAnd: rs next).
-	self pitch: rs next.
-	self velocity: rs next
-]
 
 { #category : #accessing }
 RtMidiEventNoteAbstract >> pitch [
 
-	^ pitch
+	^ byteArray at: 2
 ]
 
 { #category : #accessing }
-RtMidiEventNoteAbstract >> pitch: anObject [
+RtMidiEventNoteAbstract >> pitch: aPitch [
 
-	pitch := anObject
+	byteArray at: 2 put: aPitch
 ]
 
 { #category : #services }
@@ -36,10 +27,10 @@ RtMidiEventNoteAbstract >> transpose:  aNumber [
 
 { #category : #acessing }
 RtMidiEventNoteAbstract >> velocity [
-	^velocity
+	^byteArray at: 3
 ]
 
 { #category : #acessing }
 RtMidiEventNoteAbstract >> velocity:  aValue [
-	 velocity := aValue
+	 byteArray at: 3 put: aValue
 ]

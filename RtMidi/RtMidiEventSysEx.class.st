@@ -4,7 +4,7 @@ Missing comment
 Class {
 	#name : #RtMidiEventSysEx,
 	#superclass : #RtMidiEvent,
-	#category : #RtMidi
+	#category : #'RtMidi-events'
 }
 
 { #category : #constants }
@@ -18,43 +18,10 @@ RtMidiEventSysEx class >> eventTypeSymbol [
 	^#typeSysEx
 ]
 
-{ #category : #acessing }
-RtMidiEventSysEx >> arrayOfFieldValues [
-	^((0 to:  self countFields - 1)
-		collect:
-			[: index | 
-			 self interface
-				MidiGetField:  cPointer
-				with:  index]) asArray
-]
+{ #category : #constants }
+RtMidiEventSysEx class >> statusByte [
 
-{ #category : #acessing }
-RtMidiEventSysEx >> arrayOfFieldValues:  values [
-	 values
-		do:
-			[: each | 
-			 self interface
-				MidiAddField:  cPointer
-				with:  each]
-]
-
-{ #category : #acessing }
-RtMidiEventSysEx >> countFields [
-	^ self interface MidiCountFields:  cPointer
-]
-
-{ #category : #services }
-RtMidiEventSysEx >> createExternal [
-	 cPointer :=  self interface MidiNewEv:  self class eventTypeNumber.
-	 cPointer
-		memberAt: #date
-			put: 0;
-		memberAt: #refNum
-			put: 0;
-		memberAt: #port
-			put: 0;
-		memberAt: #chan
-			put: 0
+	^ 16rF0
 ]
 
 { #category : #printing }
