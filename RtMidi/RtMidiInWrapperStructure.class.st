@@ -10,6 +10,13 @@ Class {
 { #category : #api }
 RtMidiInWrapperStructure >> onEventReceiveDo: aBlock [
 
+	self onMessageReceiveDo: [ :ts :msg :data |
+		aBlock value: (RtMidiEvent newForByteArray: msg) ]
+]
+
+{ #category : #api }
+RtMidiInWrapperStructure >> onMessageReceiveDo: aBlock [
+
 	receiveAlarmThunk := FFICallback
 		                     signature:
 			                     #( void #( double timeStamp , void * message
