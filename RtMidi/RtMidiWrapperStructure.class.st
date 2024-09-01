@@ -72,7 +72,7 @@ RtMidiWrapperStructure >> ok: anObject [
 RtMidiWrapperStructure >> portNames [
 
 	^ (1 to: self rtMidiPortCount) collect: [ :i |
-		  i -> (self rtMidiPortName: i) ]
+		  self rtMidiPortName: i ]
 ]
 
 { #category : #'accessing - structure variables' }

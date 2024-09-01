@@ -10,7 +10,7 @@ Class {
 { #category : #accessing }
 RtMidiFfi class >> ffiLibrary [
 
-	^ RtMidiFfiLibrary
+	^ RtMidiFfiLibrary "RtMidiFfiLibraryWithTfWorkerRunner"
 ]
 
 { #category : #accessing }

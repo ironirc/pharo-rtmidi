@@ -11,12 +11,6 @@ RtMidiFfiLibrary class >> resetUniqueInstance [
 ]
 
 { #category : #'library path' }
-RtMidiFfiLibrary >> callbackRunningStrategy [
-
-	^ TFWorker default
-]
-
-{ #category : #'library path' }
 RtMidiFfiLibrary >> ffiLibraryName [
 	^ 'rtmidi'
 ]
