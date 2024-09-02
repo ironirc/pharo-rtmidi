@@ -122,7 +122,8 @@ RtMidiFfi class >> rtMidiGetPortCount: device [
 
 	^ self
 		  ffiCall: #( int rtmidi_get_port_count #( void * device ) )
-	
+		  module:
+		  'C:\Users\Ivo\source\repos\rtmidi\msw\x64\Release\Debug\rtmidi.dll'
 ]
 
 { #category : #accessing }
