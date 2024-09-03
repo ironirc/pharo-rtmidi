@@ -25,6 +25,12 @@ RtMidiEventCtrlChange class >> eventTypeSymbol [
 ]
 
 { #category : #constants }
+RtMidiEventCtrlChange class >> messageSize [
+
+	^ 3
+]
+
+{ #category : #constants }
 RtMidiEventCtrlChange class >> statusByte [
 
 	^ 16rB0

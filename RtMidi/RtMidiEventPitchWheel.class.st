@@ -23,6 +23,12 @@ RtMidiEventPitchWheel class >> eventTypeSymbol [
 ]
 
 { #category : #constants }
+RtMidiEventPitchWheel class >> messageSize [
+
+	^ 3
+]
+
+{ #category : #constants }
 RtMidiEventPitchWheel class >> statusByte [
 
 	^ 16rE0

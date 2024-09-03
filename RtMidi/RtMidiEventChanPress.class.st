@@ -21,6 +21,12 @@ RtMidiEventChanPress class >> eventTypeSymbol [
 ]
 
 { #category : #constants }
+RtMidiEventChanPress class >> messageSize [
+
+	^ 2
+]
+
+{ #category : #constants }
 RtMidiEventChanPress class >> statusByte [
 
 	^ 16rD0

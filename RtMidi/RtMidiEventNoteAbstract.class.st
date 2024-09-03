@@ -8,6 +8,12 @@ Class {
 	#category : #'RtMidi-events'
 }
 
+{ #category : #constants }
+RtMidiEventNoteAbstract class >> messageSize [
+
+	^ 3
+]
+
 { #category : #accessing }
 RtMidiEventNoteAbstract >> pitch [
 

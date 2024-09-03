@@ -21,6 +21,12 @@ RtMidiEventActiveSens class >> eventTypeSymbol [
 ]
 
 { #category : #constants }
+RtMidiEventActiveSens class >> messageSize [
+
+	^ 1
+]
+
+{ #category : #constants }
 RtMidiEventActiveSens class >> statusByte [
 
 	^ 16rFE

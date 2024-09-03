@@ -22,6 +22,12 @@ RtMidiEventProgChange class >> eventTypeSymbol [
 ]
 
 { #category : #constants }
+RtMidiEventProgChange class >> messageSize [
+
+	^ 2
+]
+
+{ #category : #constants }
 RtMidiEventProgChange class >> statusByte [
 
 	^ 16rC0

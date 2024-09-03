@@ -19,6 +19,13 @@ RtMidiEventSysEx class >> eventTypeSymbol [
 ]
 
 { #category : #constants }
+RtMidiEventSysEx class >> messageSize [
+	"we don't know yet"
+
+	^ 1
+]
+
+{ #category : #constants }
 RtMidiEventSysEx class >> statusByte [
 
 	^ 16rF0

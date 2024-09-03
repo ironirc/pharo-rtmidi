@@ -70,6 +70,12 @@ RtMidiEvent class >> interface [
 ]
 
 { #category : #constants }
+RtMidiEvent class >> messageSize [
+
+	self subclassResponsibility
+]
+
+{ #category : #constants }
 RtMidiEvent class >> newForByteArray: ba [
 
 	| firstByte statusNibble  |
@@ -138,6 +144,13 @@ RtMidiEvent >> copyDo: aBlock [
 	| ev |
 	ev := self copy.
 	aBlock value: ev
+]
+
+{ #category : #'initialize-release' }
+RtMidiEvent >> initialize [
+
+	super initialize.
+	byteArray := ByteArray new: self class messageSize.
 ]
 
 { #category : #private }
