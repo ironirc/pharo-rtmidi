@@ -122,13 +122,14 @@ RtMidiEvent >> byteArray: anObject [
 
 { #category : #accessing }
 RtMidiEvent >> channel [
-	^(byteArray at: 1) bitAnd: 16r0F
+
+	^ ((byteArray at: 1) bitAnd: 16r0F) + 1
 ]
 
 { #category : #accessing }
 RtMidiEvent >> channel: aChannel [
 
-	^ byteArray at: 1 put: (self class statusByte bitOr: aChannel)
+	^ byteArray at: 1 put: (self class statusByte bitOr: aChannel - 1)
 ]
 
 { #category : #services }
