@@ -67,3 +67,20 @@ RtMidiEventPitchWheel >> sendTo:  receiver [
 RtMidiEventPitchWheel >> type [
 	^#pitchWheel
 ]
+
+{ #category : #constants }
+RtMidiEventPitchWheel >> value [
+
+	| val |
+	val := self valueFromMsb: self msb lsb: self lsb.
+	^ val
+]
+
+{ #category : #constants }
+RtMidiEventPitchWheel >> value: value [
+
+	| msbAndLsb |
+	msbAndLsb := self msbAndLsbFrom: value.
+	self msb: msbAndLsb first.
+	self lsb: msbAndLsb last
+]
