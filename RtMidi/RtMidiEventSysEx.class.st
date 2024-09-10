@@ -33,17 +33,18 @@ RtMidiEventSysEx class >> statusByte [
 
 { #category : #printing }
 RtMidiEventSysEx >> displayString [
-	|  ws |
-	 ws :=  WriteStream on:  String new.
-	 ws
+
+	| ws |
+	ws := WriteStream on: String new.
+	ws
 		nextPutAll: '[sysex:  p: ';
-		nextPutAll:  self port displayString;
+		nextPutAll: self port displayString;
 		nextPutAll: ' - ch: ';
-		nextPutAll:  self channel displayString;
+		nextPutAll: self channel displayString;
 		nextPutAll: ' - size: ';
-		nextPutAll:  self countFields displayString;
+		nextPutAll: self byteArray size displayString;
 		nextPutAll: ' - bytes: ';
-		nextPutAll: '(' ,  self arrayOfFieldValues printString , ')';
+		nextPutAll: self byteArray printString;
 		nextPutAll: ']'.
 	^ ws contents
 ]
