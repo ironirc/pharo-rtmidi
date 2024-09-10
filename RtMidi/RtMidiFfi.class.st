@@ -72,6 +72,7 @@ RtMidiFfi class >> getVersion [
 { #category : #accessing }
 RtMidiFfi class >> openPort: device portNumber: portNumberBase1 portName: portName [
 
+	portNumberBase1 ifNil: [ self error: 'no port number supplied' ].
 	self
 		rtMidiOpenPort: device
 		portNumber: portNumberBase1 - 1
