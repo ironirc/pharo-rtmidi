@@ -68,3 +68,8 @@ RTMIDI_API_NUM 8
 )
 
 ]
+
+{ #category : #'class initialization' }
+RtMidiApiEnumeration class >> initialize [
+	self initializeEnumeration
+]
