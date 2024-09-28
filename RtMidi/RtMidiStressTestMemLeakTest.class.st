@@ -10,6 +10,12 @@ Class {
 	#tag : 'uffi'
 }
 
+{ #category : 'accessing' }
+RtMidiStressTestMemLeakTest class >> defaultTimeLimit [
+
+	^ DefaultTimeLimit ifNil: [ DefaultTimeLimit := 24 hours ]
+]
+
 { #category : 'running' }
 RtMidiStressTestMemLeakTest >> pleaseConfigureALoopBackMidiPort [
 	"To run this tests you need a midi port that loops the midi back"
