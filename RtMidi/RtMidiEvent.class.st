@@ -2,8 +2,8 @@
 Missing comment
 "
 Class {
-	#name : 'RtMidiEvent',
-	#superclass : 'Object',
+	#name : #RtMidiEvent,
+	#superclass : #Object,
 	#instVars : [
 		'port',
 		'byteArray',
@@ -12,19 +12,17 @@ Class {
 	#classInstVars : [
 		'statusByteDict'
 	],
-	#category : 'RtMidi-events',
-	#package : 'RtMidi',
-	#tag : 'events'
+	#category : 'RtMidi-events'
 }
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent class >> concreteClassForEventTypeNumber:  eventTypeNumber [
 	^ self allSubclasses
 		detect: [: cl |  cl eventTypeNumber =  eventTypeNumber]
 		ifNone: [ self]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent class >> concreteClassForEventTypeSymbol:  eventTypeSymbol [
 	^ self allSubclasses
 		detect: [: cl |  cl eventTypeSymbol =  eventTypeSymbol]
@@ -34,7 +32,7 @@ RtMidiEvent class >> concreteClassForEventTypeSymbol:  eventTypeSymbol [
 					'no concrete class for eventTypeSymbol: #' ,  eventTypeSymbol]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent class >> concreteClassForStatusByte: statusByte [
 
 	self allSubclasses do: [ :cl |
@@ -43,7 +41,7 @@ RtMidiEvent class >> concreteClassForStatusByte: statusByte [
 		'no concrete class for status byte ' , statusByte hexString
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEvent class >> eventTypeNumber [
 
 
@@ -52,12 +50,12 @@ RtMidiEvent class >> eventTypeNumber [
 		ifNil: [ eventType :=  self interface perform:  self eventTypeSymbol ""#typeKeyOn""]"
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEvent class >> eventTypeSymbol [
 	^#Generic
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent class >> initializeStatusByteDict [
 
 	statusByteDict := Dictionary new.
@@ -65,19 +63,19 @@ RtMidiEvent class >> initializeStatusByteDict [
 		sc statusByte ifNotNil: [ statusByteDict at: sc statusByte put: sc ] ]
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent class >> interface [
 
 	^ RtMidiFfi
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEvent class >> messageSize [
 
 	self subclassResponsibility
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEvent class >> newForByteArray: ba [
 
 	| firstByte statusNibble  |
@@ -90,57 +88,57 @@ RtMidiEvent class >> newForByteArray: ba [
 		  byteArray: ba
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEvent class >> newForStatusByte: statusByte [
 
 	^ (self concreteClassForStatusByte: statusByte) basicNew
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 RtMidiEvent class >> newOfType:  eventTypeSymbol forSystem:  system [
 	^(( self concreteClassForEventTypeSymbol:  eventTypeSymbol) basicNew)
 		system:  system;
 		yourself
 ]
 
-{ #category : 'instance creation' }
+{ #category : #'instance creation' }
 RtMidiEvent class >> newOfTypeNumber:  eventTypeNumber forSystem:  system [
 	^(( self concreteClassForEventTypeNumber:  eventTypeNumber) basicNew)
 		system:  system;
 		yourself
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent class >> statusByte [
 
 	^ nil
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEvent >> byteArray [
 
 	^ byteArray
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEvent >> byteArray: anObject [
 
 	byteArray := anObject
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEvent >> channel [
 
 	^ ((byteArray at: 1) bitAnd: 16r0F) + 1
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEvent >> channel: aChannel [
 
 	^ byteArray at: 1 put: (self class statusByte bitOr: aChannel - 1)
 ]
 
-{ #category : 'services' }
+{ #category : #services }
 RtMidiEvent >> copyDo: aBlock [
 
 	| ev |
@@ -148,35 +146,35 @@ RtMidiEvent >> copyDo: aBlock [
 	aBlock value: ev
 ]
 
-{ #category : 'initialize-release' }
+{ #category : #'initialize-release' }
 RtMidiEvent >> initialize [
 
 	super initialize.
 	byteArray := ByteArray new: self class messageSize.
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent >> interface [
 	^ self class interface
 ]
 
-{ #category : 'testing' }
+{ #category : #testing }
 RtMidiEvent >> isActiveSense [
 
 	^ false
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEvent >> isConsumed [
 	^ isConsumed == true
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEvent >> isConsumed:  anObject [
 	 isConsumed :=  anObject
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent >> msbAndLsbFrom:  value [
 
 	^ Array
@@ -184,31 +182,31 @@ RtMidiEvent >> msbAndLsbFrom:  value [
 		with: (( value bitShift: -7) bitAnd: 127)
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEvent >> port [
 
 	^ port
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEvent >> port: anObject [
 
 	port := anObject
 ]
 
-{ #category : 'services' }
+{ #category : #services }
 RtMidiEvent >> sendTo:  receiver [
 	"Error raiseSignal: 'unimplemented event type'"
 
 	
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEvent >> type [
 	^nil
 ]
 
-{ #category : 'private' }
+{ #category : #private }
 RtMidiEvent >> valueFromMsb:  msb lsb:  lsb [
 	^(( msb bitAnd: 127) bitShift: 7) + ( lsb bitAnd: 127)
 ]

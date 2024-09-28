@@ -1,22 +1,20 @@
 Class {
-	#name : 'RtMidiInWrapperStructure',
-	#superclass : 'RtMidiWrapperStructure',
+	#name : #RtMidiInWrapperStructure,
+	#superclass : #RtMidiWrapperStructure,
 	#instVars : [
 		'callback'
 	],
-	#category : 'RtMidi-uffi',
-	#package : 'RtMidi',
-	#tag : 'uffi'
+	#category : 'RtMidi-uffi'
 }
 
-{ #category : 'api' }
+{ #category : #api }
 RtMidiInWrapperStructure >> onEventReceiveDo: aBlock [
 
 	self onMessageReceiveDo: [ :ba |
 		aBlock value: (RtMidiEvent newForByteArray: ba) ]
 ]
 
-{ #category : 'api' }
+{ #category : #api }
 RtMidiInWrapperStructure >> onMessageReceiveDo: aBlock [
 
 	callback := RtMidiFfiLibrary uniqueInstance
@@ -29,13 +27,13 @@ RtMidiInWrapperStructure >> onMessageReceiveDo: aBlock [
 	RtMidiFfi rtMidiInSetCallback: self callback: callback data: nil
 ]
 
-{ #category : 'api' }
+{ #category : #api }
 RtMidiInWrapperStructure >> rtMidiCancelCallback [
 
 	RtMidiFfi rtMidiInCancelCallback: self
 ]
 
-{ #category : 'api' }
+{ #category : #api }
 RtMidiInWrapperStructure >> rtMidiFree [
 	"releases this object - only call once!"
 	RtMidiFfi rtMidiInFree: self

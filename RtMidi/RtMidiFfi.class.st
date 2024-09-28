@@ -1,35 +1,33 @@
 Class {
-	#name : 'RtMidiFfi',
-	#superclass : 'Object',
+	#name : #RtMidiFfi,
+	#superclass : #Object,
 	#pools : [
 		'RtMidiApiEnumeration'
 	],
-	#category : 'RtMidi-uffi',
-	#package : 'RtMidi',
-	#tag : 'uffi'
+	#category : #'RtMidi-uffi'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> ffiLibrary [
 
 	^ RtMidiFfiLibrary "RtMidiFfiLibraryWithTfWorkerRunner"
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> getApiDisplayNames [
 
 	<script: 'self getApiDisplayNames inspect'>
 	^ (0 to: 8) collect: [ :e | e -> (self rtMidiApiDisplayName: e) ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> getApiNames [
 
 	<script: 'self getApiNames inspect'>
 	^ (0 to: 8) collect: [ :e | e -> (self rtMidiApiName: e) ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> getCompiledApi [
 	<script: 'self getCompiledApi inspect'>
 	| arr |
@@ -38,7 +36,7 @@ RtMidiFfi class >> getCompiledApi [
 	^ arr asArray select: [ :e | e ~= RTMIDI_API_UNSPECIFIED ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> getPortName: device portNumber: portNumberBase1 [
 
 	| maxNameSize buffer result  |
@@ -64,14 +62,14 @@ RtMidiFfi class >> getPortName: device portNumber: portNumberBase1 [
 	^ result
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> getVersion [
 
 	<script: 'self rtMidiGetVersion inspect'>
 	^ self rtMidiGetVersion
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> openNewDefaultInOnPortNamed: aPortName [
 
 	| in pn |
@@ -81,7 +79,7 @@ RtMidiFfi class >> openNewDefaultInOnPortNamed: aPortName [
 	^ in
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> openNewDefaultOutOnPortNamed: aPortName [
 
 	| out pn |
@@ -91,7 +89,7 @@ RtMidiFfi class >> openNewDefaultOutOnPortNamed: aPortName [
 	^ out
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> openPort: device portNumber: portNumberBase1 portName: portName [
 
 	portNumberBase1 ifNil: [ self error: 'no port number supplied' ].
@@ -101,7 +99,7 @@ RtMidiFfi class >> openPort: device portNumber: portNumberBase1 portName: portNa
 		portName: portName
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> reportToTranscript [
 
 	<script>
@@ -109,7 +107,7 @@ RtMidiFfi class >> reportToTranscript [
 	
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiApiDisplayName: api [
 
 	^ self
@@ -118,7 +116,7 @@ RtMidiFfi class >> rtMidiApiDisplayName: api [
 		
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiApiName: api [
 
 	^ self
@@ -127,20 +125,20 @@ RtMidiFfi class >> rtMidiApiName: api [
 		  
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiClosePort: device [
 
 	^ self ffiCall: #( void rtmidi_close_port #( void * device ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiGetCompiledApi: array arrayLen: arrayLen [
 
 	^ self ffiCall:
 		  #( void rtmidi_get_compiled_api #( void * array , int arrayLen ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiGetPortCount: device [
 
 	^ self
@@ -149,7 +147,7 @@ RtMidiFfi class >> rtMidiGetPortCount: device [
 		  'C:\Users\Ivo\source\repos\rtmidi\msw\x64\Release\Debug\rtmidi.dll'
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiGetPortName: device portNumber: portNumber bufout: bufout buflen: buflen [
 
 	^ self ffiCall:
@@ -157,47 +155,47 @@ RtMidiFfi class >> rtMidiGetPortName: device portNumber: portNumber bufout: bufo
 		        , char * bufout , int * buflen ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiGetVersion [
 
 	^ self ffiCall: #( char * rtmidi_get_version #(  ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiInCancelCallback: device [
 
 	^ self ffiCall: #( void rtmidi_in_cancel_callback #( void * device ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiInCreateDefault [
 
 	^ self ffiCall: #( RtMidiInWrapperStructure  * rtmidi_in_create_default
 		     #(  ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiInFree: device [
 
 	^ self ffiCall: #( void rtmidi_in_free #( void * device ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiInSetCallback: device callback: callback data: data [
 
 	^ self ffiCall:
 		  #( void rtmidi_in_set_callback  #( void * device, FFICallback callback , void * data ) )
 ]
 
-{ #category : 'driver communication' }
+{ #category : #'driver communication' }
 RtMidiFfi class >> rtMidiInputPortNames [
-
+	<script: 'self rtMidiInputPortNames inspect'>
 	| in |
 	in := self rtMidiInCreateDefault.
 	^ [ in portNames ] ensure: [ in rtMidiFree ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiOpenPort: device portNumber: portNumber portName: portName [
 
 	^ self ffiCall:
@@ -205,20 +203,20 @@ RtMidiFfi class >> rtMidiOpenPort: device portNumber: portNumber portName: portN
 		        , char * portName ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiOutCreateDefault [
 
 	^ self ffiCall: #( RtMidiOutWrapperStructure * rtmidi_out_create_default
 		     #(  ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiOutFree: device [
 
 	^ self ffiCall: #( void rtmidi_out_free  #(void * device ) )
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiOutSendMessage: device message: message [
 
 	message pinInMemory.
@@ -229,21 +227,22 @@ RtMidiFfi class >> rtMidiOutSendMessage: device message: message [
 	message unpinInMemory
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiOutSendMessage: device message: message length: length [
 
 	 self ffiCall: #( void rtmidi_out_send_message  #( void * device, void * message, int length ) )
 ]
 
-{ #category : 'driver communication' }
+{ #category : #'driver communication' }
 RtMidiFfi class >> rtMidiOutputPortNames [
 
+	<script: 'self rtMidiOutputPortNames inspect'>
 	| out |
-	out := self rtMidiInCreateDefault.
+	out := self rtMidiOutCreateDefault.
 	^ [ out portNames ] ensure: [ out rtMidiFree ]
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiPortNumberForInputPortNamed: aName [
 
 	self rtMidiInputPortNames keysAndValuesDo: [ :idx :pn |
@@ -251,7 +250,7 @@ RtMidiFfi class >> rtMidiPortNumberForInputPortNamed: aName [
 	^ nil
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiFfi class >> rtMidiPortNumberForOutputPortNamed: aName [
 
 	self rtMidiOutputPortNames keysAndValuesDo: [ :idx :pn |

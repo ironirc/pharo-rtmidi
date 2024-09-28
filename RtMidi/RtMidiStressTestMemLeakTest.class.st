@@ -1,29 +1,27 @@
 Class {
-	#name : 'RtMidiStressTestMemLeakTest',
-	#superclass : 'TestCase',
+	#name : #RtMidiStressTestMemLeakTest,
+	#superclass : #TestCase,
 	#instVars : [
 		'out',
 		'in'
 	],
-	#category : 'RtMidi-uffi',
-	#package : 'RtMidi',
-	#tag : 'uffi'
+	#category : #'RtMidi-uffi'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiStressTestMemLeakTest class >> defaultTimeLimit [
 
 	^ DefaultTimeLimit ifNil: [ DefaultTimeLimit := 24 hours ]
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 RtMidiStressTestMemLeakTest >> pleaseConfigureALoopBackMidiPort [
 	"To run this tests you need a midi port that loops the midi back"
 
 	^ 'IAC-besturingsbestand Bus 1'
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 RtMidiStressTestMemLeakTest >> setUp [
 
 	out := RtMidiFfi openNewDefaultOutOnPortNamed:
@@ -32,14 +30,14 @@ RtMidiStressTestMemLeakTest >> setUp [
 		      self pleaseConfigureALoopBackMidiPort
 ]
 
-{ #category : 'running' }
+{ #category : #running }
 RtMidiStressTestMemLeakTest >> tearDown [ 
 
 	out rtMidiFree.
 	in rtMidiFree
 ]
 
-{ #category : 'tests' }
+{ #category : #tests }
 RtMidiStressTestMemLeakTest >> test1 [
 
 	| events times |

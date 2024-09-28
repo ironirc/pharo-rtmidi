@@ -2,31 +2,29 @@
 Missing comment
 "
 Class {
-	#name : 'RtMidiEventKeyOn',
-	#superclass : 'RtMidiEventNoteAbstract',
-	#category : 'RtMidi-events',
-	#package : 'RtMidi',
-	#tag : 'events'
+	#name : #RtMidiEventKeyOn,
+	#superclass : #RtMidiEventNoteAbstract,
+	#category : 'RtMidi-events'
 }
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventKeyOn class >> eventTypeNumber [
 
 	^ 1
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventKeyOn class >> eventTypeSymbol [
 	^#typeKeyOn
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventKeyOn class >> statusByte [
 
 	^ 16r90
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RtMidiEventKeyOn >> displayString [
 	|  ws |
 	 ws :=  WriteStream on:  String new.
@@ -43,7 +41,7 @@ RtMidiEventKeyOn >> displayString [
 	^ ws contents
 ]
 
-{ #category : 'services' }
+{ #category : #services }
 RtMidiEventKeyOn >> sendTo:  receiver [
 	 receiver receiveKeyOn:  self
 ]

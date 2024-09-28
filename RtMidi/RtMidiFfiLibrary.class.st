@@ -1,46 +1,44 @@
 Class {
-	#name : 'RtMidiFfiLibrary',
-	#superclass : 'FFILibrary',
+	#name : #RtMidiFfiLibrary,
+	#superclass : #FFILibrary,
 	#instVars : [
 		'runner'
 	],
-	#category : 'RtMidi-uffi',
-	#package : 'RtMidi',
-	#tag : 'uffi'
+	#category : 'RtMidi-uffi'
 }
 
-{ #category : 'initialization' }
+{ #category : #initialization }
 RtMidiFfiLibrary class >> resetUniqueInstance [
 	<script>
 	uniqueInstance := nil
 ]
 
-{ #category : 'receiveAlarms' }
+{ #category : #receiveAlarms }
 RtMidiFfiLibrary >> callbackRunningStrategy [
 	"executed once when callback is registered"
 	^ TFCallbackSameProcessRunStrategy uniqueInstance crTrace "WORKS"
 	"^ TFCallbackForkRunStrategy new crTrace" "WORKS is superclass default"
 ]
 
-{ #category : 'receiveAlarms' }
+{ #category : #receiveAlarms }
 RtMidiFfiLibrary >> calloutAPIClass [
 
 	^ TFCalloutAPI
 ]
 
-{ #category : 'library path' }
+{ #category : #'library path' }
 RtMidiFfiLibrary >> ffiLibraryName [
 	^ 'rtmidi'
 ]
 
-{ #category : 'accessing - platform' }
+{ #category : #'accessing - platform' }
 RtMidiFfiLibrary >> macLibraryName [
 	"^ '/System/Volumes/Data/opt/homebrew/Cellar/rtmidi/6.0.0/lib/librtmidi.7.dylib'"
 	
 ^'/Users/ivo/Documents/rtmidi/rtmidi/librtmidi_debug.dylib'	
 ]
 
-{ #category : 'receiveAlarms' }
+{ #category : #receiveAlarms }
 RtMidiFfiLibrary >> runner [
 	"executed once when callback is registered"
 	"^ TFWorker default crTrace"  "Works"
@@ -50,7 +48,7 @@ RtMidiFfiLibrary >> runner [
 	^runner
 ]
 
-{ #category : 'library path' }
+{ #category : #'library path' }
 RtMidiFfiLibrary >> win32ModuleName [
 	   
 	^ 'C:\Users\Ivo\source\repos\rtmidi\msw\x64\Release\Release\rtmidi.dll'

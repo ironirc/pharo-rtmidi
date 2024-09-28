@@ -1,44 +1,42 @@
 Class {
-	#name : 'RtMidiEventNoteAbstract',
-	#superclass : 'RtMidiEvent',
+	#name : #RtMidiEventNoteAbstract,
+	#superclass : #RtMidiEvent,
 	#instVars : [
 		'velocity',
 		'pitch'
 	],
-	#category : 'RtMidi-events',
-	#package : 'RtMidi',
-	#tag : 'events'
+	#category : 'RtMidi-events'
 }
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventNoteAbstract class >> messageSize [
 
 	^ 3
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEventNoteAbstract >> pitch [
 
 	^ byteArray at: 2
 ]
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiEventNoteAbstract >> pitch: aPitch [
 
 	byteArray at: 2 put: aPitch
 ]
 
-{ #category : 'services' }
+{ #category : #services }
 RtMidiEventNoteAbstract >> transpose:  aNumber [
 	 self pitch:  self pitch +  aNumber
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 RtMidiEventNoteAbstract >> velocity [
 	^byteArray at: 3
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 RtMidiEventNoteAbstract >> velocity:  aValue [
 	 byteArray at: 3 put: aValue
 ]

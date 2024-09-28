@@ -1,12 +1,10 @@
 Class {
-	#name : 'RtMidiPlayGrounds',
-	#superclass : 'Object',
-	#category : 'RtMidi-dev',
-	#package : 'RtMidi',
-	#tag : 'dev'
+	#name : #RtMidiPlayGrounds,
+	#superclass : #Object,
+	#category : 'RtMidi-dev'
 }
 
-{ #category : 'playgrounds' }
+{ #category : #playgrounds }
 RtMidiPlayGrounds class >> pg_2024_08_31 [
 
 | out in |

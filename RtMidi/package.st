@@ -1,1 +1,1 @@
-Package { #name : 'RtMidi' }
+Package { #name : #RtMidi }

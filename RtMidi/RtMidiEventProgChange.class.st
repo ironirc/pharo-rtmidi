@@ -2,40 +2,38 @@
 Missing comment
 "
 Class {
-	#name : 'RtMidiEventProgChange',
-	#superclass : 'RtMidiEvent',
+	#name : #RtMidiEventProgChange,
+	#superclass : #RtMidiEvent,
 	#instVars : [
 		'value'
 	],
-	#category : 'RtMidi-events',
-	#package : 'RtMidi',
-	#tag : 'events'
+	#category : 'RtMidi-events'
 }
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventProgChange class >> eventTypeNumber [
 
 	^5
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventProgChange class >> eventTypeSymbol [
 	^#typeProgChange
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventProgChange class >> messageSize [
 
 	^ 2
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventProgChange class >> statusByte [
 
 	^ 16rC0
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RtMidiEventProgChange >> displayString [
 	|  ws |
 	 ws :=  WriteStream on:  String new.
@@ -50,17 +48,17 @@ RtMidiEventProgChange >> displayString [
 	^ ws contents
 ]
 
-{ #category : 'services' }
+{ #category : #services }
 RtMidiEventProgChange >> sendTo:  receiver [
 	 receiver receiveProgChange:  self
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 RtMidiEventProgChange >> value [
 	^value
 ]
 
-{ #category : 'acessing' }
+{ #category : #acessing }
 RtMidiEventProgChange >> value: aValue [
 
 	value := aValue

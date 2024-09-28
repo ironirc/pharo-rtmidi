@@ -2,38 +2,36 @@
 Missing comment
 "
 Class {
-	#name : 'RtMidiEventSysEx',
-	#superclass : 'RtMidiEvent',
-	#category : 'RtMidi-events',
-	#package : 'RtMidi',
-	#tag : 'events'
+	#name : #RtMidiEventSysEx,
+	#superclass : #RtMidiEvent,
+	#category : 'RtMidi-events'
 }
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventSysEx class >> eventTypeNumber [
 
 	^17
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventSysEx class >> eventTypeSymbol [
 	^#typeSysEx
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventSysEx class >> messageSize [
 	"we don't know yet"
 
 	^ 1
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventSysEx class >> statusByte [
 
 	^ 16rF0
 ]
 
-{ #category : 'printing' }
+{ #category : #printing }
 RtMidiEventSysEx >> displayString [
 
 	| ws |
@@ -51,12 +49,12 @@ RtMidiEventSysEx >> displayString [
 	^ ws contents
 ]
 
-{ #category : 'services' }
+{ #category : #services }
 RtMidiEventSysEx >> sendTo:  receiver [
 	 receiver receiveSysEx:  self
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiEventSysEx >> type [
 	^#sysEx
 ]

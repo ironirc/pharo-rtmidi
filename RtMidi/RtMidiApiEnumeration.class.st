@@ -1,6 +1,6 @@
 Class {
-	#name : 'RtMidiApiEnumeration',
-	#superclass : 'FFIEnumeration',
+	#name : #RtMidiApiEnumeration,
+	#superclass : #FFIEnumeration,
 	#classVars : [
 		'RTMIDI_API_ANDROID',
 		'RTMIDI_API_LINUX_ALSA',
@@ -13,12 +13,10 @@ Class {
 		'RTMIDI_API_WINDOWS_MM',
 		'RTMIDI_API_WINDOWS_UWP'
 	],
-	#category : 'RtMidi-uffi',
-	#package : 'RtMidi',
-	#tag : 'uffi'
+	#category : 'RtMidi-uffi'
 }
 
-{ #category : 'accessing' }
+{ #category : #accessing }
 RtMidiApiEnumeration class >> doc [ 
 "
 RTMIDI_API_UNSPECIFIED 	
@@ -53,7 +51,7 @@ Number of values in this enum.
 "
 ]
 
-{ #category : 'constants' }
+{ #category : #constants }
 RtMidiApiEnumeration class >> enumDecl [
 "self initialize"
 ^ #(
@@ -71,7 +69,7 @@ RTMIDI_API_NUM 8
 
 ]
 
-{ #category : 'class initialization' }
+{ #category : #'class initialization' }
 RtMidiApiEnumeration class >> initialize [
 	self initializeEnumeration
 ]

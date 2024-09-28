@@ -1,24 +1,22 @@
 Class {
-	#name : 'RtMidiOutWrapperStructure',
-	#superclass : 'RtMidiWrapperStructure',
-	#category : 'RtMidi-uffi',
-	#package : 'RtMidi',
-	#tag : 'uffi'
+	#name : #RtMidiOutWrapperStructure,
+	#superclass : #RtMidiWrapperStructure,
+	#category : 'RtMidi-uffi'
 }
 
-{ #category : 'api' }
+{ #category : #api }
 RtMidiOutWrapperStructure >> rtMidiFree [
 	"releases this object - only call once!"
 	RtMidiFfi rtMidiOutFree: self
 ]
 
-{ #category : 'api' }
+{ #category : #api }
 RtMidiOutWrapperStructure >> sendMessage: msg [
 
 	RtMidiFfi rtMidiOutSendMessage: self message: msg
 ]
 
-{ #category : 'api' }
+{ #category : #api }
 RtMidiOutWrapperStructure >> sendRandom3MsNoteOnAndOff [
 
 	| p |
