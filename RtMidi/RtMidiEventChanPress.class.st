@@ -2,12 +2,14 @@
 Missing comment
 "
 Class {
-	#name : #RtMidiEventChanPress,
-	#superclass : #RtMidiEvent,
-	#category : #'RtMidi-events'
+	#name : 'RtMidiEventChanPress',
+	#superclass : 'RtMidiEvent',
+	#category : 'RtMidi-events',
+	#package : 'RtMidi',
+	#tag : 'events'
 }
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventChanPress class >> eventTypeNumber [
 
 	
@@ -15,40 +17,40 @@ RtMidiEventChanPress class >> eventTypeNumber [
 	
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventChanPress class >> eventTypeSymbol [
 	^#typeChanPress
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventChanPress class >> messageSize [
 
 	^ 2
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventChanPress class >> statusByte [
 
 	^ 16rD0
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 RtMidiEventChanPress >> sendTo:  receiver [
 	 receiver receiveChanPress:  self
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventChanPress >> type [
 	^#chanPress
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RtMidiEventChanPress >> value [
 
 	^ byteArray at: 2
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 RtMidiEventChanPress >> value: anObject [
 
 	byteArray at: 2 put: anObject

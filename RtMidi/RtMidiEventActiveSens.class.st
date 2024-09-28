@@ -2,12 +2,14 @@
 Missing comment
 "
 Class {
-	#name : #RtMidiEventActiveSens,
-	#superclass : #RtMidiEvent,
-	#category : #'RtMidi-events'
+	#name : 'RtMidiEventActiveSens',
+	#superclass : 'RtMidiEvent',
+	#category : 'RtMidi-events',
+	#package : 'RtMidi',
+	#tag : 'events'
 }
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventActiveSens class >> eventTypeNumber [
 
 	
@@ -15,37 +17,37 @@ RtMidiEventActiveSens class >> eventTypeNumber [
 	
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventActiveSens class >> eventTypeSymbol [
 	^#typeActiveSens
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventActiveSens class >> messageSize [
 
 	^ 1
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventActiveSens class >> statusByte [
 
 	^ 16rFE
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 RtMidiEventActiveSens >> isActiveSense [
 
 	^ true
 ]
 
-{ #category : #services }
+{ #category : 'services' }
 RtMidiEventActiveSens >> sendTo:  receiver [
 		receiver receiveActiveSens: self
 
 	
 ]
 
-{ #category : #constants }
+{ #category : 'constants' }
 RtMidiEventActiveSens >> type [
 	^#activeSens
 ]

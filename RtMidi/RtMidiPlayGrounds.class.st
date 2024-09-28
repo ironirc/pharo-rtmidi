@@ -1,10 +1,12 @@
 Class {
-	#name : #RtMidiPlayGrounds,
-	#superclass : #Object,
-	#category : #'RtMidi-dev'
+	#name : 'RtMidiPlayGrounds',
+	#superclass : 'Object',
+	#category : 'RtMidi-dev',
+	#package : 'RtMidi',
+	#tag : 'dev'
 }
 
-{ #category : #playgrounds }
+{ #category : 'playgrounds' }
 RtMidiPlayGrounds class >> pg_2024_08_31 [
 
 | out in |
@@ -16,7 +18,7 @@ out rtMidiPortCount.
 out portNames.
 out rtMidiOpenPortNumber: 1 portName: ''.
 out rtMidiFree.
-([1000 timesRepeat: [out sendTestNoteOnAndOff  ]] timeToRun asMilliSeconds / 1000) asFloat .
+([1000 timesRepeat: [out sendRandom3MsNoteOnAndOff  ]] timeToRun asMilliSeconds / 1000) asFloat .
 out ok.
 out msgString.
 
@@ -26,7 +28,7 @@ in rtMidiPortCount.
 in rtMidiOpenPortNumber: 3 portName: 'Hello'.
 in ok. 
 in rtMidiFree.
-in onEventReceiveDo: [ out sendTestNoteOnAndOff    ].
+in onEventReceiveDo: [ out sendRandom3MsNoteOnAndOff    ].
 
 out := RtMidiFfi rtMidiOutCreateDefault.
 out rtMidiOpenPortNumber: 4 portName: ''.

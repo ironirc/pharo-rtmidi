@@ -1,25 +1,35 @@
 Class {
-	#name : #RtMidiOutWrapperStructure,
-	#superclass : #RtMidiWrapperStructure,
-	#category : #'RtMidi-uffi'
+	#name : 'RtMidiOutWrapperStructure',
+	#superclass : 'RtMidiWrapperStructure',
+	#category : 'RtMidi-uffi',
+	#package : 'RtMidi',
+	#tag : 'uffi'
 }
 
-{ #category : #api }
+{ #category : 'api' }
 RtMidiOutWrapperStructure >> rtMidiFree [
 	"releases this object - only call once!"
 	RtMidiFfi rtMidiOutFree: self
 ]
 
-{ #category : #api }
+{ #category : 'api' }
 RtMidiOutWrapperStructure >> sendMessage: msg [
 
 	RtMidiFfi rtMidiOutSendMessage: self message: msg
 ]
 
-{ #category : #api }
-RtMidiOutWrapperStructure >> sendTestNoteOnAndOff [
+{ #category : 'api' }
+RtMidiOutWrapperStructure >> sendRandom3MsNoteOnAndOff [
 
-	self sendMessage: #[ 144 64 70 ].
-	100 milliSeconds wait.
-	self sendMessage: #[ 128 64 110 ]
+	| p |
+	p := 32 atRandom + 48.
+	self sendMessage: {
+			144.
+			p.
+			70 } asByteArray.
+	3 milliSeconds wait.
+	self sendMessage: {
+			128.
+			p.
+			70 } asByteArray
 ]
