@@ -5,7 +5,7 @@ Class {
 		'out',
 		'in'
 	],
-	#category : #'RtMidi-uffi'
+	#category : #'RtMidi-tests'
 }
 
 { #category : #accessing }
