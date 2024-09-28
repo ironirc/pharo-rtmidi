@@ -49,7 +49,7 @@ RtMidiStressTestMemLeakTest >> test1 [
 
 	| events times |
 	events := 0.
-	times := 10000.
+	times := 100000.
 	in onEventReceiveDo: [ :ev | events := events + 1 ].
 	times timesRepeat: [ out sendRandom3MsNoteOnAndOff ].
 	20 milliSeconds wait.
