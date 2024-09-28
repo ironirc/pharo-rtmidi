@@ -11,7 +11,7 @@ Class {
 { #category : #accessing }
 RtMidiStressTestMemLeakTest class >> defaultTimeLimit [
 
-	^ DefaultTimeLimit ifNil: [ DefaultTimeLimit := 24 hours ]
+	^ 24 hours
 ]
 
 { #category : #running }
