@@ -191,7 +191,7 @@ RtMidiFfi class >> rtMidiInSetCallback: device callback: callback data: data [
 
 { #category : 'driver communication' }
 RtMidiFfi class >> rtMidiInputPortNames [
-
+	<script: 'self rtMidiInputPortNames inspect'>
 	| in |
 	in := self rtMidiInCreateDefault.
 	^ [ in portNames ] ensure: [ in rtMidiFree ]
@@ -238,8 +238,9 @@ RtMidiFfi class >> rtMidiOutSendMessage: device message: message length: length 
 { #category : 'driver communication' }
 RtMidiFfi class >> rtMidiOutputPortNames [
 
+	<script: 'self rtMidiOutputPortNames inspect'>
 	| out |
-	out := self rtMidiInCreateDefault.
+	out := self rtMidiOutCreateDefault.
 	^ [ out portNames ] ensure: [ out rtMidiFree ]
 ]
 

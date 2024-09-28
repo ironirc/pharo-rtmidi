@@ -5,31 +5,38 @@ Class {
 		'out',
 		'in'
 	],
-	#category : 'RtMidi-uffi',
+	#category : 'RtMidi-tests',
 	#package : 'RtMidi',
-	#tag : 'uffi'
+	#tag : 'tests'
 }
 
 { #category : 'accessing' }
 RtMidiStressTestMemLeakTest class >> defaultTimeLimit [
 
-	^ DefaultTimeLimit ifNil: [ DefaultTimeLimit := 24 hours ]
+	^ 24 hours
 ]
 
 { #category : 'running' }
-RtMidiStressTestMemLeakTest >> pleaseConfigureALoopBackMidiPort [
+RtMidiStressTestMemLeakTest >> pleaseConfigureALoopBackMidiInputPort [
 	"To run this tests you need a midi port that loops the midi back"
+	"IAC-besturingsbestand Bus 1"
+	^ 'loopMIDI Port 1 2'
+]
 
-	^ 'IAC-besturingsbestand Bus 1'
+{ #category : 'running' }
+RtMidiStressTestMemLeakTest >> pleaseConfigureALoopBackMidiOutputPort [
+	"To run this tests you need a midi port that loops the midi back"
+	"IAC-besturingsbestand Bus 1"
+	^ 'loopMIDI Port 1 3'
 ]
 
 { #category : 'running' }
 RtMidiStressTestMemLeakTest >> setUp [
 
 	out := RtMidiFfi openNewDefaultOutOnPortNamed:
-		       self pleaseConfigureALoopBackMidiPort.
+		       self pleaseConfigureALoopBackMidiOutputPort.
 	in := RtMidiFfi openNewDefaultInOnPortNamed:
-		      self pleaseConfigureALoopBackMidiPort
+		      self pleaseConfigureALoopBackMidiInputPort
 ]
 
 { #category : 'running' }
