@@ -40,7 +40,7 @@ RtMidiApiTests >> tearDown [
 ]
 
 { #category : 'tests' }
-RtMidiApiTests >> testInputPortOpen [
+RtMidiApiTests >> testInputPortOpenAndClose [
 
 	| in |
 	in := api inputPortNamed: self inputPortNameThatLoopsBack.
@@ -51,7 +51,7 @@ RtMidiApiTests >> testInputPortOpen [
 ]
 
 { #category : 'tests' }
-RtMidiApiTests >> testOutputPortOpen [
+RtMidiApiTests >> testOutputPortOpenAndClose [
 
 	| out |
 	out := api outputPortNamed: self outputPortNameThatLoopsBack.
@@ -68,4 +68,21 @@ RtMidiApiTests >> testPortNames [
 		(api inputPortNames includes: self inputPortNameThatLoopsBack).
 	self assert:
 		(api outputPortNames includes: self outputPortNameThatLoopsBack)
+]
+
+{ #category : 'tests' }
+RtMidiApiTests >> testSendAndReceive [
+
+	| events times out in |
+	events := 0.
+	times := 100.
+	out := RtMidiApi outputPortNamed: self outputPortNameThatLoopsBack.
+	out open.
+	in := RtMidiApi inputPortNamed: self inputPortNameThatLoopsBack.
+	in onMessageReceiveDo: [ :ev | events := events + 1 ].
+	times timesRepeat: [ out sendRandom3MsNoteOnAndOff ].
+	20 milliSeconds wait.
+	self assert: events equals: times * 2.
+	out close.
+	in close
 ]

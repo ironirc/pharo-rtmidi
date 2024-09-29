@@ -183,6 +183,12 @@ RtMidiFfi class >> rtMidiInFree: device [
 ]
 
 { #category : 'ffi calls' }
+RtMidiFfi class >> rtMidiInGetCurrentApi: aDevice [
+
+	^ self ffiCall: #( RtMidiApiEnumeration rtmidi_in_get_current_api #( void * device ) )
+]
+
+{ #category : 'ffi calls' }
 RtMidiFfi class >> rtMidiInSetCallback: device callback: callback data: data [
 
 	^ self ffiCall:

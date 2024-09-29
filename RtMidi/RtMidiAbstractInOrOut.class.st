@@ -10,12 +10,11 @@ Class {
 	#tag : 'api'
 }
 
-{ #category : 'api' }
-RtMidiAbstractInOrOut >> close [
+{ #category : 'private' }
+RtMidiAbstractInOrOut >> ensureOpen [
 
-	handle ifNotNil: [
-		self interface rtMidiInFree: handle.
-		handle := nil ]
+	handle ifNotNil: [ ^ self ].
+	self open
 ]
 
 { #category : 'accessing' }
@@ -24,10 +23,16 @@ RtMidiAbstractInOrOut >> interface [
 	^RtMidiFfi
 ]
 
-{ #category : 'instance creation' }
+{ #category : 'testing' }
 RtMidiAbstractInOrOut >> isOpen [
 
-	^ handle notNil
+	^ handle notNil and: [ handle isNull not ]
+]
+
+{ #category : 'api' }
+RtMidiAbstractInOrOut >> open [
+
+	self subclassResponsibility
 ]
 
 { #category : 'accessing' }

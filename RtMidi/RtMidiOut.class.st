@@ -7,23 +7,34 @@ Class {
 }
 
 { #category : 'api' }
+RtMidiOut >> close [
+
+	self isOpen ifTrue: [ self interface rtMidiOutFree: handle ].
+	handle := nil
+]
+
+{ #category : 'api' }
 RtMidiOut >> open [
 
 	| out pn |
-	handle ifNotNil: [ self error: 'this port is already open' ].
-	out := self interface rtMidiOutCreateDefault. "default means with default os driver WINMM, Core"
+	self isOpen ifTrue: [ self error: 'this port is already open' ].
 	pn := self interface rtMidiPortNumberForOutputPortNamed:
 		      self portName.
-	self interface
-		rtMidiOpenPort: out
-		portNumber: pn
-		portName: ''.
+	pn ifNil: [ ^ self ].
+	out := self interface rtMidiOutCreateDefault. "default means with default os driver WINMM, Core"
+	self interface rtMidiOpenPort: out portNumber: pn portName: ''.
 	handle := out
 ]
 
 { #category : 'api' }
-RtMidiOut >> sendRandom3MsNoteOnAndOff [
+RtMidiOut >> sendMessage: aMessage [
 
+	handle sendMessage: aMessage
+]
+
+{ #category : 'api' }
+RtMidiOut >> sendRandom3MsNoteOnAndOff [
+	"Silly method to support a test case"
 	| p |
 	p := 32 atRandom + 48.
 	handle sendMessage: {

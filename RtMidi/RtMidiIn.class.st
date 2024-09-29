@@ -12,20 +12,25 @@ Class {
 { #category : 'api' }
 RtMidiIn >> close [
 
-	self interface rtMidiInCancelCallback: handle.
-	super close.
+	self isOpen ifTrue: [
+		"callback ifNotNil: [ self interface rtMidiInCancelCallback: handle ]. Guessing this happens implicitly with rtMidiInFree:"
+		self interface rtMidiInFree: handle ].
+	callback := nil.
+	handle := nil
 ]
 
 { #category : 'api' }
 RtMidiIn >> onMessageReceiveDo: aBlock [
 
+	self ensureOpen.
+	self isOpen ifFalse: [ ^ self ].
 	callback := RtMidiFfiLibrary uniqueInstance
 		            newCallbackWithSignature:
 			            #( void #( double timeStamp #, void #* message #, ulong
 			                  messageSize #, void #* userData ) )
 		            block: [ :timeStamp :message :messageSize :userData |
 			            aBlock value: (message copyFrom: 1 to: messageSize).
-			            Processor activeProcess terminate "not sure about this, just a wild guess in order to try to avoid mem leak"].
+			            Processor activeProcess terminate "not sure about this, just a wild guess in order to try to avoid mem leak" ].
 	RtMidiFfi rtMidiInSetCallback: handle callback: callback data: nil
 ]
 
@@ -33,19 +38,10 @@ RtMidiIn >> onMessageReceiveDo: aBlock [
 RtMidiIn >> open [
 
 	| in pn |
-	handle ifNotNil: [ self error: 'this port is already open' ].
-	in := self interface rtMidiInCreateDefault. "default means with default os driver like Windows MultiMedia, CoreMidi, ..."
+	self isOpen ifTrue: [ self error: 'this port is already open' ].
 	pn := self interface rtMidiPortNumberForInputPortNamed: self portName.
-
-	self interface
-		rtMidiOpenPort: in
-		portNumber: pn
-		portName: ''.
+	pn ifNil: [ ^ self ].
+	in := self interface rtMidiInCreateDefault. "default means with default os driver like Windows MultiMedia, CoreMidi, ..."
+	self interface rtMidiOpenPort: in portNumber: pn portName: ''.
 	handle := in
-]
-
-{ #category : 'api' }
-RtMidiIn >> rtMidiCancelCallback [
-
-	RtMidiFfi rtMidiInCancelCallback: self
 ]

@@ -5,3 +5,9 @@ Class {
 	#package : 'RtMidi',
 	#tag : 'uffi'
 }
+
+{ #category : 'as yet unclassified' }
+RtMidiInWrapperStructure >> rtMidiInGetCurrentApi [
+
+	^ RtMidiFfi rtMidiInGetCurrentApi: self
+]
