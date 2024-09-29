@@ -19,15 +19,20 @@ RtMidiStressTestMemLeakTest class >> defaultTimeLimit [
 { #category : 'running' }
 RtMidiStressTestMemLeakTest >> pleaseConfigureALoopBackMidiInputPort [
 	"To run this tests you need a midi port that loops the midi back"
-	"IAC-besturingsbestand Bus 1"
-	^ 'loopMIDI Port 1 2'
+	"maybe better to depend on an environment file"
+	OSPlatform current isMacOS ifTrue: [ ^'IAC-besturingsbestand Bus 1' ].
+	OSPlatform current isWindows ifTrue: [ ^'loopMIDI Port 1 2' ].
+	^self error: 'you to configure something here'
+
 ]
 
 { #category : 'running' }
 RtMidiStressTestMemLeakTest >> pleaseConfigureALoopBackMidiOutputPort [
 	"To run this tests you need a midi port that loops the midi back"
-	"IAC-besturingsbestand Bus 1"
-	^ 'loopMIDI Port 1 3'
+	"maybe better to depend on an environment file"
+	OSPlatform current isMacOS ifTrue: [ ^ 'IAC-besturingsbestand Bus 1' ].
+	OSPlatform current isWindows ifTrue: [ ^ 'loopMIDI Port 1 3' ].
+	^ self error: 'you to configure something here'
 ]
 
 { #category : 'running' }
@@ -40,10 +45,10 @@ RtMidiStressTestMemLeakTest >> setUp [
 ]
 
 { #category : 'running' }
-RtMidiStressTestMemLeakTest >> tearDown [ 
+RtMidiStressTestMemLeakTest >> tearDown [
 
-	out rtMidiFree.
-	in rtMidiFree
+	out ifNotNil: [ out rtMidiFree ].
+	in ifNotNil: [ in rtMidiFree ]
 ]
 
 { #category : 'tests' }
@@ -52,7 +57,7 @@ RtMidiStressTestMemLeakTest >> test1 [
 	| events times |
 	events := 0.
 	times := 100000.
-	in onEventReceiveDo: [ :ev | events := events + 1 ].
+	in onMessageReceiveDo: [ :ev | events := events + 1 ].
 	times timesRepeat: [ out sendRandom3MsNoteOnAndOff ].
 	20 milliSeconds wait.
 	self assert: events equals: times * 2

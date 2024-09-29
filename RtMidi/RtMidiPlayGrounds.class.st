@@ -28,13 +28,13 @@ in rtMidiPortCount.
 in rtMidiOpenPortNumber: 3 portName: 'Hello'.
 in ok. 
 in rtMidiFree.
-in onEventReceiveDo: [ out sendRandom3MsNoteOnAndOff    ].
+in onMessageReceiveDo: [:msg | out sendRandom3MsNoteOnAndOff    ].
 
 out := RtMidiFfi rtMidiOutCreateDefault.
 out rtMidiOpenPortNumber: 4 portName: ''.
 in := RtMidiFfi rtMidiInCreateDefault.
 in rtMidiOpenPortNumber: 2 portName: 'SlGrand'.
-in onEventReceiveDo: [:ts :msg :usrData  |  out sendMessage: msg ].
+in onMessageReceiveDo: [:msg |  out sendMessage: msg ].
 in rtMidiCancelCallback.
 
 ]

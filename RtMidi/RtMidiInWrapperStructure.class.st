@@ -10,13 +10,6 @@ Class {
 }
 
 { #category : 'api' }
-RtMidiInWrapperStructure >> onEventReceiveDo: aBlock [
-
-	self onMessageReceiveDo: [ :ba |
-		aBlock value: (RtMidiEvent newForByteArray: ba) ]
-]
-
-{ #category : 'api' }
 RtMidiInWrapperStructure >> onMessageReceiveDo: aBlock [
 
 	callback := RtMidiFfiLibrary uniqueInstance
@@ -25,7 +18,7 @@ RtMidiInWrapperStructure >> onMessageReceiveDo: aBlock [
 			                  messageSize #, void #* userData ) )
 		            block: [ :timeStamp :message :messageSize :userData |
 			            aBlock value: (message copyFrom: 1 to: messageSize).
-			            Processor activeProcess terminate ].
+			            Processor activeProcess terminate "not sure about this, just a wild guess in order to try to avoid mem leak"].
 	RtMidiFfi rtMidiInSetCallback: self callback: callback data: nil
 ]
 
