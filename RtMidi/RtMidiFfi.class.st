@@ -172,7 +172,7 @@ RtMidiFfi class >> rtMidiInCancelCallback: device [
 { #category : 'ffi calls' }
 RtMidiFfi class >> rtMidiInCreateDefault [
 
-	^ self ffiCall: #( RtMidiInWrapperStructure  * rtmidi_in_create_default
+	^ self ffiCall: #( #RtMidiInWrapperStructure  * rtmidi_in_create_default
 		     #(  ) )
 ]
 
@@ -194,7 +194,7 @@ RtMidiFfi class >> rtMidiInputPortNames [
 	<script: 'self rtMidiInputPortNames inspect'>
 	| in |
 	in := self rtMidiInCreateDefault.
-	^ [ in portNames ] ensure: [ in rtMidiFree ]
+	^ [ in portNames ] ensure: [ self rtMidiInFree: in. ]
 ]
 
 { #category : 'ffi calls' }
@@ -208,7 +208,7 @@ RtMidiFfi class >> rtMidiOpenPort: device portNumber: portNumber portName: portN
 { #category : 'ffi calls' }
 RtMidiFfi class >> rtMidiOutCreateDefault [
 
-	^ self ffiCall: #( RtMidiOutWrapperStructure * rtmidi_out_create_default
+	^ self ffiCall: #( #RtMidiOutWrapperStructure * rtmidi_out_create_default
 		     #(  ) )
 ]
 
@@ -241,21 +241,21 @@ RtMidiFfi class >> rtMidiOutputPortNames [
 	<script: 'self rtMidiOutputPortNames inspect'>
 	| out |
 	out := self rtMidiOutCreateDefault.
-	^ [ out portNames ] ensure: [ out rtMidiFree ]
+	^ [ out portNames ] ensure: [ self rtMidiInFree: out ]
 ]
 
 { #category : 'accessing' }
 RtMidiFfi class >> rtMidiPortNumberForInputPortNamed: aName [
 
 	self rtMidiInputPortNames keysAndValuesDo: [ :idx :pn |
-		pn = aName ifTrue: [ ^ idx ] ].
+		pn = aName ifTrue: [ ^ idx - 1 ] ].
 	^ nil
 ]
 
 { #category : 'accessing' }
 RtMidiFfi class >> rtMidiPortNumberForOutputPortNamed: aName [
-
+	"return zero based portnumber"
 	self rtMidiOutputPortNames keysAndValuesDo: [ :idx :pn |
-		pn = aName ifTrue: [ ^ idx ] ].
+		pn = aName ifTrue: [ ^ idx - 1 ] ].
 	^ nil
 ]

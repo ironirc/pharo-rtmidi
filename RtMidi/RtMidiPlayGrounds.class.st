@@ -17,7 +17,8 @@ RtMidiFfi getApiDisplayNames.
 out rtMidiPortCount.
 out portNames.
 out rtMidiOpenPortNumber: 1 portName: ''.
-out rtMidiFree.
+RtMidiFfi rtMidiInFree: out. 
+
 ([1000 timesRepeat: [out sendRandom3MsNoteOnAndOff  ]] timeToRun asMilliSeconds / 1000) asFloat .
 out ok.
 out msgString.
@@ -27,7 +28,7 @@ in portNames.
 in rtMidiPortCount.
 in rtMidiOpenPortNumber: 3 portName: 'Hello'.
 in ok. 
-in rtMidiFree.
+RtMidiFfi rtMidiInFree: in. 
 in onMessageReceiveDo: [:msg | out sendRandom3MsNoteOnAndOff    ].
 
 out := RtMidiFfi rtMidiOutCreateDefault.

@@ -90,16 +90,6 @@ RtMidiWrapperStructure >> ptr: anObject [
 ]
 
 { #category : 'api' }
-RtMidiWrapperStructure >> rtMidiOpenPortNumber: portNumberBase1 portName: portName [
-
-	RtMidiFfi
-		openPort: self
-		portNumber: portNumberBase1
-		portName: portName.
-
-]
-
-{ #category : 'api' }
 RtMidiWrapperStructure >> rtMidiPortCount [
 
 	^ RtMidiFfi rtMidiGetPortCount: self
