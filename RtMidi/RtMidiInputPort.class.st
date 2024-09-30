@@ -13,7 +13,7 @@ Class {
 RtMidiInputPort >> close [
 
 	self isOpen ifTrue: [
-		callback ifNotNil: [ self interface rtMidiInCancelCallback: handle ].
+		"callback ifNotNil: [ self interface rtMidiInCancelCallback: handle ]."
 		self interface rtMidiInFree: handle ].
 	callback := nil.
 	handle := nil
@@ -24,16 +24,14 @@ RtMidiInputPort >> onMessageReceiveDo: aBlock [
 
 	self ensureOpen.
 	self isOpen ifFalse: [ ^ self ].
-	callback := self interface ffiLibrary uniqueInstance
+	callback := RtMidiFfiLibrary uniqueInstance
 		            newCallbackWithSignature:
-			            #( void #( double timeStamp #, void #* message #, ulong
-			                  messageSize #, void #* userData ) )
+			            #( void #( double timeStamp , void * message , ulong
+			                  messageSize , void * userData ) )
 		            block: [ :timeStamp :message :messageSize :userData |
-			            aBlock value: (message copyFrom: 1 to: messageSize) ].
-	self interface
-		rtMidiInSetCallback: handle
-		callback: callback
-		data: nil
+			            aBlock value: (message copyFrom: 1 to: messageSize).
+			            Processor activeProcess terminate "not sure about this, just a wild guess in order to try to avoid mem leak" ].
+	RtMidiFfi rtMidiInSetCallback: handle callback: callback data: nil
 ]
 
 { #category : 'api' }
