@@ -1,6 +1,6 @@
 Class {
 	#name : 'RtMidiStressTestMemLeakTest',
-	#superclass : 'TestCase',
+	#superclass : 'RtMidiApiTests',
 	#instVars : [
 		'out',
 		'in'
@@ -17,30 +17,11 @@ RtMidiStressTestMemLeakTest class >> defaultTimeLimit [
 ]
 
 { #category : 'running' }
-RtMidiStressTestMemLeakTest >> inputPortNameThatLoopsBack [
-	"To run this tests you need a midi port that loops the midi back"
-	"maybe better to depend on an environment file"
-	OSPlatform current isMacOS ifTrue: [ ^'IAC-besturingsbestand Bus 1' ].
-	OSPlatform current isWindows ifTrue: [ ^'loopMIDI Port 1 2' ].
-	^self error: 'you to configure something here'
-
-]
-
-{ #category : 'running' }
-RtMidiStressTestMemLeakTest >> outputPortNameThatLoopsBack [
-	"To run this tests you need a midi port that loops the midi back"
-	"maybe better to depend on an environment file"
-	OSPlatform current isMacOS ifTrue: [ ^ 'IAC-besturingsbestand Bus 1' ].
-	OSPlatform current isWindows ifTrue: [ ^ 'loopMIDI Port 1 3' ].
-	^ self error: 'you to configure something here'
-]
-
-{ #category : 'running' }
 RtMidiStressTestMemLeakTest >> setUp [
-
-	out := RtMidiApi outputPortNamed: self outputPortNameThatLoopsBack.
+	super setUp. 
+	out := api outputPortNamed: self outputPortNameThatLoopsBack.
 	out open.
-	in := RtMidiApi inputPortNamed: self inputPortNameThatLoopsBack.
+	in := api inputPortNamed: self inputPortNameThatLoopsBack.
 	in open. 
 ]
 

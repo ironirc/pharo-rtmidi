@@ -1,5 +1,5 @@
 "
-I expose a simple api for easy use. (uniform with Pharo-sound PortMidi)
+I expose a simple api for easy use. (uniform with PortMidiApi in the Pharo-sound repo)
 "
 Class {
 	#name : 'RtMidiApi',
