@@ -52,7 +52,7 @@ RtMidiFfiWrapperStructure >> msg: anObject [
 	handle pointerAt: OFFSET_MSG put: anObject getHandle.
 ]
 
-{ #category : 'accessing - structure variables' }
+{ #category : 'accessing' }
 RtMidiFfiWrapperStructure >> msgString [
 
 	^self msg bytesFromCString utf8Decoded.

@@ -72,26 +72,6 @@ RtMidiFfi class >> getVersion [
 ]
 
 { #category : 'accessing' }
-RtMidiFfi class >> openNewDefaultInOnPortNamed: aPortName [
-
-	| in pn |
-	in := self rtMidiInCreateDefault.
-	pn := self rtMidiPortNumberForInputPortNamed: aPortName.
-	self openPort: in portNumber: pn portName: ''.
-	^ in
-]
-
-{ #category : 'accessing' }
-RtMidiFfi class >> openNewDefaultOutOnPortNamed: aPortName [
-
-	| out pn |
-	out := self rtMidiOutCreateDefault.
-	pn := self rtMidiPortNumberForOutputPortNamed: aPortName.
-	self openPort: out portNumber: pn portName: ''.
-	^ out
-]
-
-{ #category : 'accessing' }
 RtMidiFfi class >> openPort: device portNumber: portNumberBase1 portName: portName [
 
 	portNumberBase1 ifNil: [ self error: 'no port number supplied' ].

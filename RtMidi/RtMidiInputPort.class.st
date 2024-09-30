@@ -24,14 +24,14 @@ RtMidiInputPort >> onMessageReceiveDo: aBlock [
 
 	self ensureOpen.
 	self isOpen ifFalse: [ ^ self ].
-	callback := RtMidiFfiLibrary uniqueInstance
+	callback := self interface ffiLibrary uniqueInstance
 		            newCallbackWithSignature:
 			            #( void #( double timeStamp #, void #* message #, ulong
 			                  messageSize #, void #* userData ) )
 		            block: [ :timeStamp :message :messageSize :userData |
 			            aBlock value: (message copyFrom: 1 to: messageSize).
 			            Processor activeProcess terminate "not sure about this, just a wild guess in order to try to avoid mem leak" ].
-	RtMidiFfi rtMidiInSetCallback: handle callback: callback data: nil
+	self interface rtMidiInSetCallback: handle callback: callback data: nil
 ]
 
 { #category : 'api' }
