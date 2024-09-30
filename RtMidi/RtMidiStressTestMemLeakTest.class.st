@@ -43,7 +43,7 @@ RtMidiStressTestMemLeakTest >> test1 [
 	events := 0.
 	times := 100. "100k is doable once... second 100k run makes the system crash eventually"
 	in onMessageReceiveDo: [ :ev | events := events + 1 ].
-	times timesRepeat: [ out sendRandom3MsNoteOnAndOff ].
+	times timesRepeat: [ self sendRandom3MsNoteOnAndOffOnOut: out ].
 	20 milliSeconds wait.
 	self assert: events equals: times * 2
 ]

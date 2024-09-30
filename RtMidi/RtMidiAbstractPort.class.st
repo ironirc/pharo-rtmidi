@@ -10,6 +10,12 @@ Class {
 	#tag : 'api'
 }
 
+{ #category : 'api' }
+RtMidiAbstractPort >> close [
+
+	self subclassResponsibility
+]
+
 { #category : 'private' }
 RtMidiAbstractPort >> ensureOpen [
 

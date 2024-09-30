@@ -1,5 +1,5 @@
 Class {
-	#name : 'RtMidiOutput',
+	#name : 'RtMidiOutputPort',
 	#superclass : 'RtMidiAbstractPort',
 	#category : 'RtMidi-api',
 	#package : 'RtMidi',
@@ -7,14 +7,14 @@ Class {
 }
 
 { #category : 'api' }
-RtMidiOutput >> close [
+RtMidiOutputPort >> close [
 
 	self isOpen ifTrue: [ self interface rtMidiOutFree: handle ].
 	handle := nil
 ]
 
 { #category : 'api' }
-RtMidiOutput >> open [
+RtMidiOutputPort >> open [
 
 	| out pn |
 	self isOpen ifTrue: [ self error: 'this port is already open' ].
@@ -27,23 +27,7 @@ RtMidiOutput >> open [
 ]
 
 { #category : 'api' }
-RtMidiOutput >> sendMessage: aMessage [
+RtMidiOutputPort >> sendMessage: aMessage [
 
 	handle sendMessage: aMessage
-]
-
-{ #category : 'test-support' }
-RtMidiOutput >> sendRandom3MsNoteOnAndOff [
-	"Silly method to support a test case"
-	| p |
-	p := 32 atRandom + 48.
-	handle sendMessage: {
-			144.
-			p.
-			70 } asByteArray.
-	3 milliSeconds wait.
-	handle sendMessage: {
-			128.
-			p.
-			70 } asByteArray
 ]

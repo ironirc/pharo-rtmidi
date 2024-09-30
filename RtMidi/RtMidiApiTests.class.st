@@ -28,6 +28,22 @@ RtMidiApiTests >> outputPortNameThatLoopsBack [
 	^ self error: 'you to configure something here'
 ]
 
+{ #category : 'private' }
+RtMidiApiTests >> sendRandom3MsNoteOnAndOffOnOut: out [
+
+	| p |
+	p := 32 atRandom + 48.
+	out sendMessage: {
+			144.
+			p.
+			70 } asByteArray.
+	3 milliSeconds wait.
+	out sendMessage: {
+			128.
+			p.
+			70 } asByteArray
+]
+
 { #category : 'running' }
 RtMidiApiTests >> setUp [
 
@@ -80,7 +96,7 @@ RtMidiApiTests >> testSendAndReceive [
 	out open.
 	in := RtMidiApi inputPortNamed: self inputPortNameThatLoopsBack.
 	in onMessageReceiveDo: [ :ev | events := events + 1 ].
-	times timesRepeat: [ out sendRandom3MsNoteOnAndOff ].
+	times timesRepeat: [ self sendRandom3MsNoteOnAndOffOnOut: out ].
 	20 milliSeconds wait.
 	self assert: events equals: times * 2.
 	out close.

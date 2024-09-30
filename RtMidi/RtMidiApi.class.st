@@ -12,7 +12,7 @@ Class {
 { #category : 'private' }
 RtMidiApi class >> inputPortNamed: aName [
 
-	^ RtMidiInput new
+	^ RtMidiInputPort new
 		  portName: aName;
 		  yourself
 ]
@@ -32,7 +32,7 @@ RtMidiApi class >> interface [
 { #category : 'private' }
 RtMidiApi class >> outputPortNamed: aName [
 
-	^ RtMidiOutput new
+	^ RtMidiOutputPort new
 		  portName: aName;
 		  yourself
 ]
