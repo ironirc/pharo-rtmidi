@@ -1,5 +1,5 @@
 Class {
-	#name : 'RtMidiWrapperStructure',
+	#name : 'RtMidiFfiWrapperStructure',
 	#superclass : 'FFIStructure',
 	#classVars : [
 		'OFFSET_DATA',
@@ -13,7 +13,7 @@ Class {
 }
 
 { #category : 'field definition' }
-RtMidiWrapperStructure class >> fieldsDesc [ 
+RtMidiFfiWrapperStructure class >> fieldsDesc [ 
 "void *	ptr	 The wrapped RtMidi object.
 void *	data	
 bool	ok	True when the last function call was OK.
@@ -29,74 +29,74 @@ char *	 msg	;
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> data [
+RtMidiFfiWrapperStructure >> data [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_DATA) type: ExternalType void asPointerType
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> data: anObject [
+RtMidiFfiWrapperStructure >> data: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_DATA put: anObject getHandle.
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> msg [
+RtMidiFfiWrapperStructure >> msg [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_MSG) type: ExternalType char asPointerType
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> msg: anObject [
+RtMidiFfiWrapperStructure >> msg: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_MSG put: anObject getHandle.
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> msgString [
+RtMidiFfiWrapperStructure >> msgString [
 
 	^self msg bytesFromCString utf8Decoded.
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> ok [
+RtMidiFfiWrapperStructure >> ok [
 	"This method was automatically generated"
 	^handle booleanAt: OFFSET_OK
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> ok: anObject [
+RtMidiFfiWrapperStructure >> ok: anObject [
 	"This method was automatically generated"
 	handle booleanAt: OFFSET_OK put: anObject
 ]
 
 { #category : 'api' }
-RtMidiWrapperStructure >> portNames [
+RtMidiFfiWrapperStructure >> portNames [
 
 	^ (1 to: self rtMidiPortCount) collect: [ :i |
 		  self rtMidiPortName: i ]
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> ptr [
+RtMidiFfiWrapperStructure >> ptr [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: OFFSET_PTR) type: ExternalType void asPointerType
 ]
 
 { #category : 'accessing - structure variables' }
-RtMidiWrapperStructure >> ptr: anObject [
+RtMidiFfiWrapperStructure >> ptr: anObject [
 	"This method was automatically generated"
 	handle pointerAt: OFFSET_PTR put: anObject getHandle.
 ]
 
 { #category : 'api' }
-RtMidiWrapperStructure >> rtMidiPortCount [
+RtMidiFfiWrapperStructure >> rtMidiPortCount [
 
 	^ RtMidiFfi rtMidiGetPortCount: self
 ]
 
 { #category : 'api' }
-RtMidiWrapperStructure >> rtMidiPortName: portNumberOneBased [
+RtMidiFfiWrapperStructure >> rtMidiPortName: portNumberOneBased [
 
 	^ RtMidiFfi getPortName: self portNumber: portNumberOneBased
 ]

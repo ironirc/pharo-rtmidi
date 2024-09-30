@@ -1,5 +1,5 @@
 Class {
-	#name : 'RtMidiApiEnumeration',
+	#name : 'RtMidiFfiApiEnumeration',
 	#superclass : 'FFIEnumeration',
 	#classVars : [
 		'RTMIDI_API_ANDROID',
@@ -19,7 +19,7 @@ Class {
 }
 
 { #category : 'accessing' }
-RtMidiApiEnumeration class >> doc [ 
+RtMidiFfiApiEnumeration class >> doc [ 
 "
 RTMIDI_API_UNSPECIFIED 	
 Search for a working compiled API.
@@ -54,7 +54,7 @@ Number of values in this enum.
 ]
 
 { #category : 'constants' }
-RtMidiApiEnumeration class >> enumDecl [
+RtMidiFfiApiEnumeration class >> enumDecl [
 "self initialize"
 ^ #(
 RTMIDI_API_UNSPECIFIED 0
@@ -72,6 +72,6 @@ RTMIDI_API_NUM 8
 ]
 
 { #category : 'class initialization' }
-RtMidiApiEnumeration class >> initialize [
+RtMidiFfiApiEnumeration class >> initialize [
 	self initializeEnumeration
 ]

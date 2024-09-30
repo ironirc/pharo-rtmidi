@@ -1,20 +1,20 @@
 Class {
-	#name : 'RtMidiOut',
-	#superclass : 'RtMidiAbstractInOrOut',
+	#name : 'RtMidiOutput',
+	#superclass : 'RtMidiAbstractPort',
 	#category : 'RtMidi-api',
 	#package : 'RtMidi',
 	#tag : 'api'
 }
 
 { #category : 'api' }
-RtMidiOut >> close [
+RtMidiOutput >> close [
 
 	self isOpen ifTrue: [ self interface rtMidiOutFree: handle ].
 	handle := nil
 ]
 
 { #category : 'api' }
-RtMidiOut >> open [
+RtMidiOutput >> open [
 
 	| out pn |
 	self isOpen ifTrue: [ self error: 'this port is already open' ].
@@ -27,13 +27,13 @@ RtMidiOut >> open [
 ]
 
 { #category : 'api' }
-RtMidiOut >> sendMessage: aMessage [
+RtMidiOutput >> sendMessage: aMessage [
 
 	handle sendMessage: aMessage
 ]
 
-{ #category : 'api' }
-RtMidiOut >> sendRandom3MsNoteOnAndOff [
+{ #category : 'test-support' }
+RtMidiOutput >> sendRandom3MsNoteOnAndOff [
 	"Silly method to support a test case"
 	| p |
 	p := 32 atRandom + 48.

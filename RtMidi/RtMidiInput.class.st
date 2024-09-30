@@ -1,6 +1,6 @@
 Class {
-	#name : 'RtMidiIn',
-	#superclass : 'RtMidiAbstractInOrOut',
+	#name : 'RtMidiInput',
+	#superclass : 'RtMidiAbstractPort',
 	#instVars : [
 		'callback'
 	],
@@ -10,7 +10,7 @@ Class {
 }
 
 { #category : 'api' }
-RtMidiIn >> close [
+RtMidiInput >> close [
 
 	self isOpen ifTrue: [
 		"callback ifNotNil: [ self interface rtMidiInCancelCallback: handle ]. Guessing this happens implicitly with rtMidiInFree:"
@@ -20,7 +20,7 @@ RtMidiIn >> close [
 ]
 
 { #category : 'api' }
-RtMidiIn >> onMessageReceiveDo: aBlock [
+RtMidiInput >> onMessageReceiveDo: aBlock [
 
 	self ensureOpen.
 	self isOpen ifFalse: [ ^ self ].
@@ -35,7 +35,7 @@ RtMidiIn >> onMessageReceiveDo: aBlock [
 ]
 
 { #category : 'api' }
-RtMidiIn >> open [
+RtMidiInput >> open [
 
 	| in pn |
 	self isOpen ifTrue: [ self error: 'this port is already open' ].

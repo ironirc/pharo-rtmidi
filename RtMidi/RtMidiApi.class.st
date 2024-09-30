@@ -1,3 +1,6 @@
+"
+I expose a simple api for easy use. (uniform with Pharo-sound PortMidi)
+"
 Class {
 	#name : 'RtMidiApi',
 	#superclass : 'Object',
@@ -9,7 +12,7 @@ Class {
 { #category : 'private' }
 RtMidiApi class >> inputPortNamed: aName [
 
-	^ RtMidiIn new
+	^ RtMidiInput new
 		  portName: aName;
 		  yourself
 ]
@@ -29,7 +32,7 @@ RtMidiApi class >> interface [
 { #category : 'private' }
 RtMidiApi class >> outputPortNamed: aName [
 
-	^ RtMidiOut new
+	^ RtMidiOutput new
 		  portName: aName;
 		  yourself
 ]

@@ -2,7 +2,7 @@ Class {
 	#name : 'RtMidiFfi',
 	#superclass : 'Object',
 	#pools : [
-		'RtMidiApiEnumeration'
+		'RtMidiFfiApiEnumeration'
 	],
 	#category : 'RtMidi-uffi',
 	#package : 'RtMidi',
@@ -33,7 +33,7 @@ RtMidiFfi class >> getApiNames [
 RtMidiFfi class >> getCompiledApi [
 	<script: 'self getCompiledApi inspect'>
 	| arr |
-	arr := (FFIArray newArrayTypeOf: RtMidiApiEnumeration size: 10) new.
+	arr := (FFIArray newArrayTypeOf: RtMidiFfiApiEnumeration size: 10) new.
 	self rtMidiGetCompiledApi: arr arrayLen: 10.
 	^ arr asArray select: [ :e | e ~= RTMIDI_API_UNSPECIFIED ]
 ]
@@ -172,7 +172,7 @@ RtMidiFfi class >> rtMidiInCancelCallback: device [
 { #category : 'ffi calls' }
 RtMidiFfi class >> rtMidiInCreateDefault [
 
-	^ self ffiCall: #( #RtMidiInWrapperStructure  * rtmidi_in_create_default
+	^ self ffiCall: #( #RtMidiFfiInWrapperStructure  * rtmidi_in_create_default
 		     #(  ) )
 ]
 
@@ -185,7 +185,7 @@ RtMidiFfi class >> rtMidiInFree: device [
 { #category : 'ffi calls' }
 RtMidiFfi class >> rtMidiInGetCurrentApi: aDevice [
 
-	^ self ffiCall: #( RtMidiApiEnumeration rtmidi_in_get_current_api #( void * device ) )
+	^ self ffiCall: #( #RtMidiFfiApiEnumeration rtmidi_in_get_current_api #( void * device ) )
 ]
 
 { #category : 'ffi calls' }
@@ -214,7 +214,7 @@ RtMidiFfi class >> rtMidiOpenPort: device portNumber: portNumber portName: portN
 { #category : 'ffi calls' }
 RtMidiFfi class >> rtMidiOutCreateDefault [
 
-	^ self ffiCall: #( #RtMidiOutWrapperStructure * rtmidi_out_create_default
+	^ self ffiCall: #( #RtMidiFfiOutWrapperStructure * rtmidi_out_create_default
 		     #(  ) )
 ]
 

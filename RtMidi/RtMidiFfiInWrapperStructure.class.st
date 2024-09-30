@@ -1,13 +1,13 @@
 Class {
-	#name : 'RtMidiInWrapperStructure',
-	#superclass : 'RtMidiWrapperStructure',
+	#name : 'RtMidiFfiInWrapperStructure',
+	#superclass : 'RtMidiFfiWrapperStructure',
 	#category : 'RtMidi-uffi',
 	#package : 'RtMidi',
 	#tag : 'uffi'
 }
 
 { #category : 'as yet unclassified' }
-RtMidiInWrapperStructure >> rtMidiInGetCurrentApi [
+RtMidiFfiInWrapperStructure >> rtMidiInGetCurrentApi [
 
 	^ RtMidiFfi rtMidiInGetCurrentApi: self
 ]

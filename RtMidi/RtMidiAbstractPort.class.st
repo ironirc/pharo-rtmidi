@@ -1,5 +1,5 @@
 Class {
-	#name : 'RtMidiAbstractInOrOut',
+	#name : 'RtMidiAbstractPort',
 	#superclass : 'Object',
 	#instVars : [
 		'portName',
@@ -11,38 +11,38 @@ Class {
 }
 
 { #category : 'private' }
-RtMidiAbstractInOrOut >> ensureOpen [
+RtMidiAbstractPort >> ensureOpen [
 
 	handle ifNotNil: [ ^ self ].
 	self open
 ]
 
 { #category : 'accessing' }
-RtMidiAbstractInOrOut >> interface [  
+RtMidiAbstractPort >> interface [  
 
 	^RtMidiFfi
 ]
 
 { #category : 'testing' }
-RtMidiAbstractInOrOut >> isOpen [
+RtMidiAbstractPort >> isOpen [
 
 	^ handle notNil and: [ handle isNull not ]
 ]
 
 { #category : 'api' }
-RtMidiAbstractInOrOut >> open [
+RtMidiAbstractPort >> open [
 
 	self subclassResponsibility
 ]
 
 { #category : 'accessing' }
-RtMidiAbstractInOrOut >> portName [
+RtMidiAbstractPort >> portName [
 	"relying on portname rather than on indexes"
 	^ portName
 ]
 
 { #category : 'accessing' }
-RtMidiAbstractInOrOut >> portName: anObject [
+RtMidiAbstractPort >> portName: anObject [
 
 	portName := anObject
 ]
