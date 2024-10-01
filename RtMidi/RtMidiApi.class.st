@@ -42,3 +42,10 @@ RtMidiApi class >> outputPortNames [
 
 	^self interface rtMidiOutputPortNames
 ]
+
+{ #category : 'private' }
+RtMidiApi class >> terminate [
+	"api uniformity portmidi. Might need extra work here"
+
+	
+]
