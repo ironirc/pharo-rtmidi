@@ -37,11 +37,16 @@ RtMidiInputPort >> onMessageReceiveDo: aBlock [
 { #category : 'api' }
 RtMidiInputPort >> open [
 
-	| in pn |
+	| tempHandle pn |
 	self isOpen ifTrue: [ self error: 'this port is already open' ].
 	pn := self interface rtMidiPortNumberForInputPortNamed: self portName.
 	pn ifNil: [ ^ self ].
-	in := self interface rtMidiInCreateDefault. "default means with default os driver like Windows MultiMedia, CoreMidi, ..."
-	self interface rtMidiOpenPort: in portNumber: pn portName: ''.
-	handle := in
+	tempHandle := self interface rtMidiInCreateDefault. "default means with default os driver like Windows MultiMedia, CoreMidi, ..."
+	self interface rtMidiOpenPort: tempHandle portNumber: pn portName: ''.
+	self interface
+		rtMidiIn: tempHandle
+		ignoreSysex: false
+		ignoreTimingEvents: false
+		ignoreActiveSense: false.
+	handle := tempHandle
 ]

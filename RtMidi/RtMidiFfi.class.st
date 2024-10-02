@@ -144,6 +144,15 @@ RtMidiFfi class >> rtMidiGetVersion [
 ]
 
 { #category : 'ffi calls' }
+RtMidiFfi class >> rtMidiIn: device ignoreSysex: ignoreSysex ignoreTimingEvents: ignoreTimingEvents ignoreActiveSense: ignoreActiveSense [
+"Specify whether certain MIDI message types should be queued or ignored during input.
+By default, MIDI timing and active sensing messages are ignored during message input because of their relative high data rates. MIDI sysex messages are ignored by default as well. Variable values of ""true"" imply that the respective message type will be ignored."
+
+	^ self ffiCall:
+		  #( void rtmidi_in_ignore_types  #( void * device, int ignoreSysex, int ignoreTimingEvents, int ignoreActiveSense ) )
+]
+
+{ #category : 'ffi calls' }
 RtMidiFfi class >> rtMidiInCancelCallback: device [
 
 	^ self ffiCall: #( void rtmidi_in_cancel_callback #( void * device ) )

@@ -97,8 +97,25 @@ RtMidiApiTests >> testSendAndReceive [
 	in := RtMidiApi inputPortNamed: self inputPortNameThatLoopsBack.
 	in onMessageReceiveDo: [ :ev | events := events + 1 ].
 	times timesRepeat: [ self sendRandom3MsNoteOnAndOffOnOut: out ].
-	20 milliSeconds wait.
+	5 milliSeconds wait.
 	self assert: events equals: times * 2.
+	out close.
+	in close
+]
+
+{ #category : 'tests' }
+RtMidiApiTests >> testSendAndReceiveSysex [
+
+	| received out in sendResult msg |
+	out := api outputPortNamed: self outputPortNameThatLoopsBack.
+	out open.
+	in := api inputPortNamed: self inputPortNameThatLoopsBack.
+	in onMessageReceiveDo: [ :ev | received := ev ].
+	msg := #[16rF0 10 11 12 13 14 15 16 17 18 19 20 16rF7]. 
+	sendResult := out sendMessage: msg.
+	10 	milliSeconds wait.
+	self assert: received notNil.
+	self assert: received asByteArray equals: msg .
 	out close.
 	in close
 ]
