@@ -119,3 +119,16 @@ RtMidiApiTests >> testSendAndReceiveSysex [
 	out close.
 	in close
 ]
+
+{ #category : 'tests' }
+RtMidiApiTests >> testSendWithError [
+
+	|   out  msg |
+
+	out := RtMidiApi outputPortNamed: 'self outputPortNameThatLoopsBack'.
+	out open.
+	msg := ByteArray new: 2000 withAll: 7.
+	out sendMessage: msg.
+	out close.
+
+]
