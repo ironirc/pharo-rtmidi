@@ -15,5 +15,6 @@ RtMidiFfiOutWrapperStructure >> rtMidiFree [
 { #category : 'api' }
 RtMidiFfiOutWrapperStructure >> sendMessage: msg [
 
-	RtMidiFfi rtMidiOutSendMessage: self message: msg
+	RtMidiFfi rtMidiOutSendMessage: self message: msg.
+	self ok ifFalse: [ self error: 'something went wrong while sending a message' ]
 ]
