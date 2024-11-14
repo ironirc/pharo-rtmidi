@@ -15,7 +15,7 @@ RtMidiApiTests >> inputPortNameThatLoopsBack [
 	"maybe better to depend on an environment file instead of isMacOS/isWindows"
 	OSPlatform current isMacOS ifTrue: [ ^'IAC-besturingsbestand Bus 1' ].
 	OSPlatform current isWindows ifTrue: [ ^'loopMIDI Port 1 2' ].
-	^self error: 'you to configure something here'
+	^self error: 'you need to configure something here'
 
 ]
 
@@ -25,7 +25,7 @@ RtMidiApiTests >> outputPortNameThatLoopsBack [
 	"maybe better to depend on an environment file instead of isMacOS/isWindows"
 	OSPlatform current isMacOS ifTrue: [ ^ 'IAC-besturingsbestand Bus 1' ].
 	OSPlatform current isWindows ifTrue: [ ^ 'loopMIDI Port 1 3' ].
-	^ self error: 'you to configure something here'
+	^ self error: 'you need to configure something here'
 ]
 
 { #category : 'private' }
